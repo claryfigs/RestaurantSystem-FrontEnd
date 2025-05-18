@@ -1,0 +1,6 @@
+.restaurant-list-client {
+    display: flex;
+    flex-direction: row;     /* ou apenas remova, pois 'row' é o padrão */
+    flex-wrap: wrap;         /* permite que os itens quebrem linha */
+    gap: 3.5vh;               /* espaçamento opcional entre os cards */
+}

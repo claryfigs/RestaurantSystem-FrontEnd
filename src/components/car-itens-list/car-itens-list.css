@@ -1,0 +1,27 @@
+.car-itens-list {
+  display: flex;
+  flex-direction: column; /* Organiza os itens verticalmente */
+  align-items: center;
+  max-height: 95%;
+  overflow-y: auto; /* Adiciona a barra de rolagem vertical quando o conteúdo exceder a altura */
+}
+
+.finish-shopping-button{
+  padding: 1.5vh;
+  margin: 2vh;
+  margin-bottom: 5vh;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.321);
+  border-radius: 5vh;
+  font-family: var(--fonte-principal);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: white;
+  user-select: none;
+}
+
+.finish-shopping-button:hover {  
+  background-color: rgba(255, 255, 255, 0.512);
+}

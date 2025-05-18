@@ -1,0 +1,41 @@
+/*VARIÁVEIS GLOBAIS*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: rgb(240, 249, 255);
+}
+
+:root {
+  --vermelho-leve: #ff7c7c; /* Exemplo de azul */
+  --vermelho-forte: #A83636;
+  --fonte-principal: 'Nunito', sans-serif;
+  --cinza-maisclaro: #dbdbdb;
+  --cinza-claro: #797979;
+  --cinza-escuro: #212121;
+  --verde: #00c01d;
+}
+
+h1{
+  font-family: var(--fonte-principal);
+  color: var(--cinza-escuro);
+  font-weight: 800;
+  font-size: 2rem;
+  overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+  text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+  white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+h2{
+  font-family: var(--fonte-principal);
+  color: var(--cinza-claro);
+  font-weight: 700;
+  font-size: 1rem;
+  overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+  text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+  white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+

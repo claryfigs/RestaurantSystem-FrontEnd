@@ -1,0 +1,71 @@
+.restaurant-card-client{
+    border-radius: 5vh;
+    width: 30vh;
+    transition: 0.2s ease-in-out;
+    box-shadow: 0px 0px 15px #00000010;
+}
+
+.restaurant-card-client:hover{
+    box-shadow: 0px 0px 15px #00000050;
+}
+
+.restaurant-card-client-image{
+    width: 30vh;
+    height: 30vh;
+    border-top-left-radius: 5vh;
+    border-top-right-radius: 5vh;
+    cursor: pointer;
+}
+
+.restaurant-card-client-top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.76);
+    width: 30vh;
+    height: 6vh;
+    border-top-left-radius: 5vh;
+    border-top-right-radius: 5vh;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.restaurant-card-client-top-text{
+    color: var(--cinza-escuro);
+    font-family: var(--fonte-principal);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.restaurant-card-client-infos{
+    width: 30vh;
+    padding: 2vh;
+    background-color: rgb(255, 255, 255);
+    border-bottom-left-radius: 5vh;
+    border-bottom-right-radius: 5vh;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+    cursor: pointer;
+}
+
+.restaurant-card-client-infos-title{
+    color: var(--cinza-escuro);
+    font-family: var(--fonte-principal);
+    font-weight: 700;
+    font-size: 1rem;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.restaurant-card-client-infos-subtitle{
+    color: var(--verde);
+    font-family: var(--fonte-principal);
+    font-weight: 700;
+    font-size: 0.8rem;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}

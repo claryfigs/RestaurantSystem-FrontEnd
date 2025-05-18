@@ -1,0 +1,9 @@
+.restaurant-client{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10vh;
+    margin-left: 4vh;
+    margin-right: 4vh;
+    justify-content: center;
+    align-content: center;
+}
