@@ -1,1 +1,3 @@
-# RestaurantSystem-FrontEnd
+# React + TypeScript + Vite
+
+Teste do ReadMe
