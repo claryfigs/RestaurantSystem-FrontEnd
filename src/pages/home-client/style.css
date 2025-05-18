@@ -1,0 +1,25 @@
+.home-client{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10vh;
+    margin-left: 4vh;
+    margin-right: 4vh;
+    justify-content: center;
+    align-content: center;
+}
+
+.home-client-search-space{
+    display: flex;
+    flex-direction: line;
+    width: 100%;
+    margin-bottom: 3vh;
+}
+
+.home-client-texts-space{
+    margin-bottom: 3vh;
+}
+
+.home-client-texts-space2{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}

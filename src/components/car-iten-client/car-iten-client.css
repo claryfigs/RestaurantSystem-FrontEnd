@@ -1,0 +1,85 @@
+.car-iten{
+  height: 14vh;
+  width: 40vh;
+  display: flex;
+  margin: 2vh;
+  margin-bottom: 0;
+  align-items: center;
+  padding: 1.5vh;
+  background-color: rgba(255, 255, 255, 0.321);
+  border-radius: 2.5vh;
+  user-select: none;
+}
+
+.car-space-image{
+  height: 100%;
+  width: 30%;
+  display: flex; /* Habilita o Flexbox para centralizar os filhos */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+}
+
+.car-image-food{
+  height: 9.5vh;
+  width: 9.5vh;
+  border-radius: 2.5vh;
+}
+
+.car-space-infos{
+  height: 100%;
+  width: 50%;
+  margin-left: 1vh;
+  overflow: hidden;
+}
+
+.car-infos{
+  font-family: var(--fonte-principal);
+  color: white;
+  font-weight: 700;
+  font-size: 0.8rem;
+  overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+  text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+  white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.car-price{
+  font-family: var(--fonte-principal);
+  color: var(--vermelho-forte);
+  margin-top: 0.6vh;
+  font-weight: 800;
+  font-size: 1rem;
+  overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+  text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+  white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.car-space-trash{
+  display: flex; /* Habilita o Flexbox para centralizar os filhos */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  height: 100%;
+  width: 20%;
+  margin-left: 1vh;
+}
+
+.car-trash-button{
+  height: 5vh;
+  width: 5vh;
+  align-content: center;
+  text-align: center;
+  background-color: pink;
+  border-radius: 1.5vh;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.car-trash-button:hover{
+  background-color: rgba(255, 255, 255, 0.512);
+}
+
+.trash-icon {
+  max-width: 2vh;
+  user-select: none;
+  margin-top: 0.5vh;
+}
+

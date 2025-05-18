@@ -1,0 +1,88 @@
+.car-box {
+  width: 7vh;
+  height: 7vh;
+  border-radius: 1vh;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 2vh;
+  background-color: #ffffff;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  position: fixed; /* importante para posicionar fixo na tela */
+  top: 0;
+  right: 0; /* aparece no canto direito */
+  z-index: 1000;
+}
+
+.car-box:hover {
+  background-color: var(--vermelho-leve);
+}
+
+.car-box-version2 {
+  display: flex;
+  align-items: center;
+  height: 7vh;
+  border-radius: 2vh;
+  padding: 2vh;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.car-box-version2:hover {
+  background-color: white;
+}
+
+.car-box-open {
+  width: 45vh;
+
+  height: 100vh;
+  background-color: var(--vermelho-leve);
+  border-radius: 1vh;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  position: fixed;
+  top: 0;
+  right: 0; /* fixa no canto direito */
+  z-index: 1000;
+
+  /* animação */
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* aberto: desliza para dentro */
+.car-box-open.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* fechado: desliza para fora */
+.car-box-open.close {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.car-icon {
+  max-width: 3vh;
+  height: auto;
+  cursor: pointer;
+  user-select: none;
+}
+
+.car-head-space {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 7vh;
+  user-select: none;
+}
+
+.car-head-text {
+  font-family: var(--fonte-principal);
+  color: var(--vermelho-forte);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-right: 2vh;
+}

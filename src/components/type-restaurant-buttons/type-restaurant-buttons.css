@@ -1,0 +1,79 @@
+.type-restaurant-buttons{
+    display: flex;
+    flex-direction: line;
+
+}
+
+.type-restaurant-all{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30vh;
+    height: 8vh;
+    box-shadow: 0px 0px 15px #00000010;
+    padding: 2vh;
+    border-radius: 5vh;
+    background-color: var(--vermelho-leve);
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.3s ease-in-out;
+}
+
+.type-restaurant-all:hover{
+    background-color: var(--vermelho-forte);
+}
+
+.type-restaurant-all-text{
+    font-family: var(--fonte-principal);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.food-icon{
+    width: 3vh;
+    height: 3vh;
+    margin-right: 1.5vh;
+}
+
+.type-restaurant-favorites{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2vh;
+    margin-bottom: 2vh;
+    width: 20vh;
+    height: 8vh;
+    box-shadow: 0px 0px 15px #00000010;
+    padding: 2vh;
+    border-radius: 5vh;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.3s ease-in-out;
+}
+
+.type-restaurant-favorites:hover{
+    background-color: var(--cinza-maisclaro);
+}
+
+.type-restaurant-favorites-text{
+    font-family: var(--fonte-principal);
+    color: var(--cinza-claro);
+    font-weight: 700;
+    font-size: 0.9rem;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.heart-icon{
+    width: 3vh;
+    height: 2.5vh;
+    margin-right: 1.5vh;
+}

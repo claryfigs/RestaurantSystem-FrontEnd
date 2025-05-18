@@ -1,0 +1,35 @@
+.filters-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20vh;
+    height: 8vh;
+    box-shadow: 0px 0px 15px #00000010;
+    padding: 2vh;
+    border-radius: 5vh;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.3s ease-in-out;
+}
+
+.filters-button:hover{
+    background-color: var(--cinza-maisclaro);
+}
+
+.filters-button-text{
+    font-family: var(--fonte-principal);
+    color: var(--cinza-claro);
+    font-weight: 700;
+    font-size: 1rem;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.filters-icon{
+    width: 4vh;
+    height: 3vh;
+    margin-right: 1.5vh;
+}
