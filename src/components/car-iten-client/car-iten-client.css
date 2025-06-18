@@ -20,9 +20,10 @@
 }
 
 .car-image-food{
-  height: 9.5vh;
-  width: 9.5vh;
-  border-radius: 2.5vh;
+  height: 9.8vh;
+  width: 9.8vh;
+  border-radius: 2vh;
+  border: 0.3vh solid white; /* largura, estilo e cor da borda */
 }
 
 .car-space-infos{
@@ -42,12 +43,22 @@
   white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
 }
 
+.car-infos-title{
+  font-family: var(--fonte-principal);
+  color: white;
+  font-weight: 800;
+  font-size: 1rem;
+  overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+  text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+  white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
 .car-price{
   font-family: var(--fonte-principal);
   color: var(--vermelho-forte);
   margin-top: 0.6vh;
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 1.3rem;
   overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
   text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
   white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */

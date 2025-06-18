@@ -20,7 +20,7 @@ const CarItenClient: React.FC = () => {
         </div>
 
         <div className='car-space-infos'>
-          <p className='car-infos'>Sanduiche delicioso</p>
+          <p className='car-infos-title'>Sanduiche delicioso</p>
           <p className='car-infos'>Sabor Queijo</p>
           <p className='car-infos'>x1</p>
           <p className='car-price'>R$ 20,00</p>

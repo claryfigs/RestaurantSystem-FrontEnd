@@ -6,22 +6,37 @@
   overflow-y: auto; /* Adiciona a barra de rolagem vertical quando o conteúdo exceder a altura */
 }
 
-.finish-shopping-button{
+.finish-space{
+  display: flex;
+  flex-direction: line;
+  width: 90%;
   padding: 1.5vh;
   margin: 2vh;
   margin-bottom: 5vh;
-  text-align: center;
-  cursor: pointer;
   transition: 0.3s ease-in-out;
-  background-color: rgba(255, 255, 255, 0.321);
-  border-radius: 5vh;
-  font-family: var(--fonte-principal);
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: white;
-  user-select: none;
 }
 
-.finish-shopping-button:hover {  
-  background-color: rgba(255, 255, 255, 0.512);
+.car-list-value{
+  width: 40%;
+}
+
+.car-list-text1{
+  font-family: var(--fonte-principal);
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--vermelho-forte);
+}
+
+.car-list-text2{
+  font-family: var(--fonte-principal);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: white;
+}
+
+
+.car-list-button{
+  display: flex;
+  justify-content: center;
+  width: 60%;
 }

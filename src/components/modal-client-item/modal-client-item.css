@@ -1,0 +1,104 @@
+.modal-client-item-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* overlay escuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-client-item-content {
+  background-color: white;
+  padding: 2vh;
+  border-radius: 2vh;
+  width: 40%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-client-item-header{
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    height: 4vh;
+}
+
+.close-icon-modal-client{
+    width: 3vh;
+    height: 3vh;
+}
+
+.modal-client-item-imagespace{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 25vh;
+}
+
+.modal-client-item-image{
+    background-color: blue;
+    border-radius: 2vh;
+    border: 0.3vh solid var(--cinza-claro);
+    width: 45vh;
+    height: 25vh;
+}
+
+.modal-client-item-infos{
+    margin-top: 2vh;
+}
+
+.modal-client-item-infos2{
+    display: flex;
+    flex-direction: line;
+    margin-bottom: 1vh;
+    align-items: center;
+}
+
+.modal-client-item-title{
+    font-family: var(--fonte-principal);
+    color: var(--cinza-escuro);
+    font-weight: 800;
+    font-size: 1rem;
+    margin-right: 1vh;
+}
+
+.modal-client-item-subtitle{
+    font-family: var(--fonte-principal);
+    color: var(--cinza-claro);
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.modal-client-item-price{
+    font-family: var(--fonte-principal);
+    color: var(--vermelho-forte);
+    font-weight: 800;
+    font-size: 1rem;
+    margin-right: 1vh;
+}
+
+.modal-client-item-description{
+    background-color: var(--cinza-maisclaro);
+    padding: 1.5vh;
+    border-radius: 2vh;
+    height: 15vh;
+    margin-bottom: 1vh;
+    font-family: var(--fonte-principal);
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--cinza-claro);
+    overflow: auto;    /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: normal;/* Garante que o texto permaneça em uma única linha */
+}
+
+.modal-client-item-buttonspace{
+    display: flex;
+    justify-content: center;
+    margin-top: 5vh;
+    margin-bottom: 2vh;
+}

@@ -25,13 +25,6 @@ function HomeClient() {
         <TypeRestaurantButtons/>
 
         <RestaurantListClient/>
-        
-        <div className='home-client-texts-space2'>
-          <h1>Produtos populares</h1>
-          <h2>Itens mais populares dos estabelicimentos</h2>
-        </div>
-
-        <RestaurantListClient/>
 
       </div>
     </div>

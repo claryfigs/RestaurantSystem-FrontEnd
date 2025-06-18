@@ -5,8 +5,12 @@ import SearchIcon from '../../assets/search-icon.png';
 const SearchBar: React.FC = () => {
   return (
     <div className='search-bar'>
-        <img src={SearchIcon} alt="Ícone da lupa" className="search-icon" />
-        <p className='search-bar-text'>Pesquisar restaurante</p>
+      <img src={SearchIcon} alt="Ícone da lupa" className="search-icon" />
+      <input
+        type="text"
+        className="search-input"
+        placeholder="Pesquisar restaurante"
+      />
     </div>
   );
 };
