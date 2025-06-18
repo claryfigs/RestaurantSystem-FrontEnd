@@ -1,0 +1,68 @@
+.item-card-client{
+    border-radius: 5vh;
+    width: 25vh;
+    transition: 0.2s ease-in-out;
+    box-shadow: 0px 0px 15px #00000010;
+}
+
+.item-card-client:hover{
+    box-shadow: 0px 0px 15px #00000050;
+}
+
+.item-card-client-image{
+    width: 25vh;
+    height: 25vh;
+    border-top-left-radius: 5vh;
+    border-top-right-radius: 5vh;
+    cursor: pointer;
+}
+
+.item-card-client-top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.76);
+    width: 25vh;
+    height: 6vh;
+    border-top-left-radius: 5vh;
+    border-top-right-radius: 5vh;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.item-card-client-top-text{
+    color: var(--cinza-escuro);
+    font-family: var(--fonte-principal);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.item-card-client-infos{
+    text-align: right;
+    width: 25vh;
+    padding: 1.5vh;
+    background-color: rgb(255, 255, 255);
+    border-bottom-left-radius: 5vh;
+    border-bottom-right-radius: 5vh;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+    cursor: pointer;
+}
+
+.item-card-client-infos-title{
+    margin-right: 1vh;
+    color: var(--cinza-escuro);
+    font-family: var(--fonte-principal);
+    font-weight: 600;
+    font-size: 1.5rem;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.item-card-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

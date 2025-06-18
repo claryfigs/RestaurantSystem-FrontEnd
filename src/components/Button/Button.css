@@ -1,0 +1,35 @@
+.custom-button {
+  padding: 1vh 2vh;
+  border: none;
+  border-radius: 1vh;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: var(--fonte-principal);
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+/* Variante primária */
+.custom-button.primary {
+  background-color: var(--vermelho-leve);
+  color: white;
+}
+
+.custom-button.primary:hover {
+  background-color: var(--vermelho-forte);
+}
+
+/* Variante secundária */
+.custom-button.secondary {
+  background-color: var(--vermelho-forte);
+  color: #ffffff;
+}
+
+.custom-button.secondary:hover {
+  background-color: #702121;
+}
+
+.custom-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
