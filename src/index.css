@@ -13,6 +13,7 @@ body{
   --vermelho-leve: #ff7c7c; /* Exemplo de azul */
   --vermelho-forte: #A83636;
   --fonte-principal: 'Nunito', sans-serif;
+  --fonte-titulo: 'Kanit', sans-serif;
   --cinza-maisclaro: #dbdbdb;
   --cinza-claro: #797979;
   --cinza-escuro: #212121;
@@ -20,9 +21,9 @@ body{
 }
 
 h1{
-  font-family: var(--fonte-principal);
+  font-family: var(--fonte-titulo);
   color: var(--cinza-escuro);
-  font-weight: 800;
+  font-weight: 600;
   font-size: 2rem;
   overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
   text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */

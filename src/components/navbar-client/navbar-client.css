@@ -24,7 +24,7 @@
   width: 100%;
   text-align: center;
   align-content: center;
-  font-family: var(--fonte-principal);
-  font-weight: 800;
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
   font-size: 1.5rem;
 }
