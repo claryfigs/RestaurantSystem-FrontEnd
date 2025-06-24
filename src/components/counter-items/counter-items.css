@@ -6,7 +6,9 @@
 }
 
 .counter-button {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #ff7a7a;
     border: none;
     font-family: var(--fonte-principal);
@@ -22,7 +24,9 @@
 }
 
 .counter-display {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #ffffff;
     border: 1px solid var(--cinza-claro);
     font-family: var(--fonte-principal);
@@ -40,8 +44,8 @@
 
 .counter-text{
     font-family: var(--fonte-principal);
-    font-weight: 400;
+    font-weight: 600;
     font-size: 1rem;
     margin-left: 1vh;
-    color: var(--cinza-escuro);
+    color: var(--vermelho-forte);
 }

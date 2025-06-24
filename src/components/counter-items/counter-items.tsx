@@ -18,7 +18,7 @@ const CounterItems: React.FC = () => {
       <div className='counter-display'>{count}</div>
       <div className='counter-button' onClick={increase}>+</div>
       {count === 10 && (
-        <p className='counter-text'>O máximo de itens solicitáveis é 10</p>
+        <p className='counter-text'>O máximo de solicitáveis é 10</p>
       )}
     </div>
   );
