@@ -1,0 +1,27 @@
+.button-map{
+    display: flex;
+    flex-direction: line;
+    align-items: center;
+    justify-content: center;
+    padding: 1vh 2vh;
+    border: none;
+    border-radius: 1vh;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: var(--fonte-principal);
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    background-color: var(--vermelho-leve);
+    color: white;
+    width: 15vh;
+}
+
+.button-map:hover {
+    background-color: #702121;
+}
+
+.button-map-image{
+    width: 2vh;
+    height: 3vh;
+    margin-right: 1vh;
+}
