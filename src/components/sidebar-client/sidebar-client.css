@@ -75,7 +75,7 @@
   border-radius: 5vh;
   font-family: var(--fonte-principal);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: white;
   user-select: none;
   overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
