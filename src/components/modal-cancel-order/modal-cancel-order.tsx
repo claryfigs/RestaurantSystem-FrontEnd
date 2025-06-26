@@ -16,7 +16,7 @@ const ModalCancelOrder: React.FC<ModalCancelOrderProps> = ({ onClose }) => {
   return (
     <div className="modal-cancel-order-overlay">
       <div className="modal-cancel-order-box">
-        <h1>Deseja mesmo cancelar o pedido?</h1>
+        <h1>Deseja cancelar o pedido?</h1>
         <h2>O valor do pedido será reembolsado para seu saldo da carteira.</h2>
         
         <div className="modal-cancel-order-buttons">
