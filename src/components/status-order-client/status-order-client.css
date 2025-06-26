@@ -1,0 +1,30 @@
+.status-tracker {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 2px #ccc;
+  font-family: var(--fonte-principal);
+  user-select: none;
+}
+
+.status-item {
+display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5vh;
+  background-color: #eee;
+  color: #555;
+  font-weight: 500;
+  border-right: 1px solid #ccc;
+}
+
+.status-item:last-child {
+  border-right: none;
+}
+
+.status-item.active {
+  background-color: #ff7b7b; /* vermelho claro como na imagem */
+  color: white;
+  font-weight: bold;
+}
