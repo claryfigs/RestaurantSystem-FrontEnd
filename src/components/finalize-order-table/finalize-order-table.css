@@ -64,7 +64,7 @@
     color: var(--cinza-escuro);
     font-family: var(--fonte-titulo);
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .finalize-order-value-subtitle{
@@ -72,6 +72,6 @@
     color: var(--vermelho-forte);
     font-family: var(--fonte-titulo);
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 

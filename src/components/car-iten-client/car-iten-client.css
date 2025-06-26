@@ -58,7 +58,7 @@
   color: var(--vermelho-forte);
   margin-top: 0.6vh;
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1rem;
   overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
   text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
   white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
