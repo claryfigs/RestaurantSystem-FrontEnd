@@ -23,14 +23,14 @@
 .car-list-text1{
   font-family: var(--fonte-principal);
   font-weight: 800;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--vermelho-forte);
 }
 
 .car-list-text2{
   font-family: var(--fonte-principal);
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: white;
 }
 
