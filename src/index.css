@@ -40,3 +40,12 @@ h2{
   white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
 }
 
+h3{
+  font-family: var(--fonte-principal);
+  color: var(--cinza-escuro);
+  font-weight: 900;
+  font-size: 1rem;
+  overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+  text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+  white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
