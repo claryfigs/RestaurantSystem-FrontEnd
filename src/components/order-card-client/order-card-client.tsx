@@ -5,7 +5,7 @@ import StatusOrderClient from '../status-order-client/status-order-client';
 import ModalCancelOrder from '../modal-cancel-order/modal-cancel-order'; // importe aqui
 
 const OrderCardClient: React.FC = () => {
-  const [status] = useState<'em_preparo' | 'saiu_pra_entrega' | 'entregue'>('entregue');
+  const [status] = useState<'em_preparo' | 'saiu_pra_entrega' | 'entregue'>('em_preparo');
   const [showCancelModal, setShowCancelModal] = useState(false); // controle do modal
 
   const openCancelModal = () => {

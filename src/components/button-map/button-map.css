@@ -13,7 +13,7 @@
     transition: background-color 0.3s ease;
     background-color: var(--vermelho-leve);
     color: white;
-    width: 15vh;
+    min-width: 17vh;
 }
 
 .button-map:hover {
