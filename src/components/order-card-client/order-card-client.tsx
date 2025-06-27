@@ -85,12 +85,14 @@ const OrderCardClient: React.FC = () => {
         </div>
       </div>
 
-      <Button
-        label="Cancelar pedido"
-        variant="primary"
-        disabled={status !== 'em_preparo'}
-        onClick={openCancelModal}
-      />
+      <div className='order-card-client-buttonspace'>
+        <Button
+          label="Cancelar pedido"
+          variant="primary"
+          disabled={status !== 'em_preparo'}
+          onClick={openCancelModal}
+        />
+      </div>
 
       {showCancelModal && <ModalCancelOrder onClose={closeCancelModal} />}
     </div>
