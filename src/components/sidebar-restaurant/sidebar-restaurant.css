@@ -1,0 +1,88 @@
+.sidebar-box {
+  width: 7vh;
+  height: 7vh;
+  border-radius: 1vh;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 2vh;
+  background-color: #ffffff;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.sidebar-box:hover {
+  background-color: var(--vermelho-leve);
+}
+
+.sidebar-box-version2 {
+  width: 7vh;
+  height: 7vh;
+  border-radius: 2vh;
+  padding: 2vh;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.sidebar-box-version2:hover {
+  background-color: white;
+}
+
+.sidebar-box-open {
+  width: 30vh;
+  height: 100vh;
+  background-color: var(--vermelho-leve);
+  border-radius: 1vh;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  /* Animação */
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.sidebar-box-open.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.sidebar-box-open.close {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.sidebar-icon {
+  max-width: 3vh;
+  height: auto;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sidebar-buttons {
+  padding: 1.5vh;
+  margin: 2vh;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.321);
+  border-radius: 5vh;
+  font-family: var(--fonte-principal);
+  font-weight: 700;
+  font-size: 1rem;
+  color: white;
+  user-select: none;
+  overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+  text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+  white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.sidebar-buttons:hover {
+  background-color: rgba(255, 255, 255, 0.512);
+}

@@ -8,6 +8,7 @@ import FinalizeOrder from './pages/finalize-order';
 import WalletClient from './pages/wallet-client';
 import TrackOrderClient from './pages/track-order-client';
 import OrderRecordClient from './pages/order-record-client';
+import RestaurantProfile from './pages/restaurant-profile';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/wallet-client" element={<WalletClient/>} />
         <Route path="/track-order-client" element={<TrackOrderClient/>}/>
         <Route path="/order-record-client" element={<OrderRecordClient/>}/>
+        <Route path="/restaurant-profile" element={<RestaurantProfile/>}/>
       </Routes>
     </BrowserRouter>
   </StrictMode>

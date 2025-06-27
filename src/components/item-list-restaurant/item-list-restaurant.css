@@ -1,0 +1,25 @@
+.item-list-restaurant{
+    display: flex;
+    flex-direction: column;
+}
+
+.item-list-restaurant-header{
+    display: flex;
+    flex-direction: line;
+    gap: 2vh;
+}
+
+.restaurant-list-restaurant {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    display: flex;
+    flex-direction: row;     /* ou apenas remova, pois 'row' é o padrão */
+    flex-wrap: wrap;         /* permite que os itens quebrem linha */
+    gap: 3.5vh;               /* espaçamento opcional entre os cards */
+}
+
+.item-list-restaurant-buttons{
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+}
