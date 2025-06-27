@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './style.css';
 import NavbarClient from '../../components/navbar-client/navbar-client';
 import Button from '../../components/Button/Button';
+import ButtonMap from '../../components/button-map/button-map';
 import ItemListClient from '../../components/item-list-client/item-list-client';
 import RestaurantImage from '../../assets/ueceana.png';
 import ModalClientItem from '../../components/modal-client-item/modal-client-item';
@@ -69,7 +70,7 @@ function RestaurantClient() {
           <div className='restaurant-client-box4'>
             <div className='restaurant-client-box5'>
               <p style={{ marginRight: '1vh' }}>Av Rua Itaperi 123 UECE - Fortaleza</p>
-              <Button label="Ver mapa" variant="primary" />
+              <ButtonMap/>
             </div>
             <p>+55 85 99898-0000</p>
           </div>

@@ -1,10 +1,17 @@
+import { useState } from 'react';
 import './style.css';
 import NavbarRestaurant from '../../components/navbar-restaurant/navbar-restaurant';
 import Button from '../../components/Button/Button';
 import RestaurantImage from '../../assets/ueceana.png';
 import ItemListRestaurant from '../../components/item-list-restaurant/item-list-restaurant';
+import ButtonMap from '../../components/button-map/button-map';
+import ModalAddCategory from '../../components/modal-add-category/modal-add-category'; // importa o modal
 
 function RestaurantProfile() {
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
+
+  const handleOpenCategoryModal = () => setShowCategoryModal(true);
+  const handleCloseCategoryModal = () => setShowCategoryModal(false);
 
   return (
     <div>
@@ -38,21 +45,29 @@ function RestaurantProfile() {
               <Button label="Editar perfil" variant="primary" />
               <p className='restaurant-profile-timeopen'>Seg-Sex 08:00-18:00</p>
             </div>
-            
           </div>
 
           {/* Endereço e telefone */}
           <div className='restaurant-profile-box4'>
             <div className='restaurant-profile-box5'>
               <p style={{ marginRight: '1vh' }}>Av Rua Itaperi 123 UECE - Fortaleza</p>
-              <Button label="Ver mapa" variant="primary" />
+              <ButtonMap/>
             </div>
             <p>+55 85 99898-0000</p>
           </div>
 
-          <ItemListRestaurant/>
-          <Button label="Criar nova categoria" variant="secondary"/>
+          <ItemListRestaurant />
+          
+          {/* Botão para abrir o modal de categoria */}
+          <Button 
+            label="Criar nova categoria" 
+            variant="secondary" 
+            onClick={handleOpenCategoryModal}
+          />
 
+          {/* Modal de categoria */}
+          {showCategoryModal && <ModalAddCategory onClose={handleCloseCategoryModal} />}
+          
         </div>
       </div>
     </div>
