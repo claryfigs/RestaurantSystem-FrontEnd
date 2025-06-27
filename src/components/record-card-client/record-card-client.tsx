@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import './record-card-client.css';
 import Button from '../Button/Button';
 import StatusOrderClient from '../status-order-client/status-order-client';
-import ModalCancelOrder from '../modal-cancel-order/modal-cancel-order'; // importe aqui
+import ModalAssessmentClient from '../modal-assessment-client/modal-assessment-client';
 
 const RecordCardClient: React.FC = () => {
   const [status] = useState<'em_preparo' | 'saiu_pra_entrega' | 'entregue'>('entregue');
+  const [showModal, setShowModal] = useState(false);
 
   return (
+    <>
     <div className='order-card-client'>
       <div className='order-card-client-head'>
         <h1>UEACEANA - PEDIDO #1234</h1>
@@ -20,6 +22,7 @@ const RecordCardClient: React.FC = () => {
           label="Avaliar pedido"
           variant="primary"
           disabled={status !== 'entregue'}
+          onClick={() => setShowModal(true)}
         />
       </div>
 
@@ -75,8 +78,12 @@ const RecordCardClient: React.FC = () => {
           <h2>"Estou na sala 13 estou deixando uma observação bem grande pra ver até onde vai o texto adicionado"</h2>
         </div>
       </div>
-
     </div>
+
+    {showModal && <ModalAssessmentClient onClose={() => setShowModal(false)} />}
+
+    </>
+
   );
 };
 

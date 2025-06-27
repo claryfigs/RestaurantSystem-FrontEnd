@@ -1,4 +1,6 @@
 .order-card-client{
+    display: flex;
+    flex-direction: column;
     background-color: white;
     border-radius: 3vh;
     padding: 2vh;

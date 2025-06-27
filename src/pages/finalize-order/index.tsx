@@ -13,7 +13,7 @@ function FinalizeOrder() {
     console.log('Selecionado:', value);
   };
 
-  const [observation, setObservation] = useState('Estou na sala 13');
+  const [observation, setObservation] = useState('');
 
 return (
     <div>
