@@ -1,0 +1,17 @@
+.button-edit-restaurant{
+    display: flex;
+    flex-direction: line;
+    align-items: center;
+    justify-content: center;
+    padding: 1vh;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: var(--vermelho-leve);
+    color: white;
+}
+
+.button-edit-restaurant-image{
+    width: 3vh;
+    height: 3vh;
+}
