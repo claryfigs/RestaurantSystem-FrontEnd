@@ -1,0 +1,14 @@
+/* stars-assessment-client.css */
+.stars-container {
+  display: flex;
+}
+
+.star-icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.2s ease;
+}
+
+.star-icon:hover {
+  transform: scale(1.1);
+}

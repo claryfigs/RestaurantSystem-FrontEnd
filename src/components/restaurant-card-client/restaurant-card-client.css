@@ -50,16 +50,6 @@
     cursor: pointer;
 }
 
-.restaurant-card-client-infos-title{
-    color: var(--cinza-escuro);
-    font-family: var(--fonte-principal);
-    font-weight: 700;
-    font-size: 1rem;
-    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
-    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
-    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
-}
-
 .restaurant-card-client-infos-subtitle{
     color: var(--verde);
     font-family: var(--fonte-principal);

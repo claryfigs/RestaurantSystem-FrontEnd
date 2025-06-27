@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './style.css';
 import NavbarClient from '../../components/navbar-client/navbar-client';
-import StarsIcon from '../../assets/stars-icon.png';
 import Button from '../../components/Button/Button';
 import ItemListClient from '../../components/item-list-client/item-list-client';
 import RestaurantImage from '../../assets/ueceana.png';
 import ModalClientItem from '../../components/modal-client-item/modal-client-item';
+import Stars from '../../components/stars/stars';
 
 function RestaurantClient() {
   const [favorited, setFavorited] = useState(false);
@@ -44,7 +44,7 @@ function RestaurantClient() {
             <div className='restaurant-client-box2'>
               <div className='restaurant-client-box3'>
                 <p className='restaurant-client-name'>UECEANA</p>
-                <img className='restaurant-client-stars' src={StarsIcon} alt="estrelas restaurant" />
+                <Stars activeStars={3} />
               </div>
 
               <div className='restaurant-client-description'>

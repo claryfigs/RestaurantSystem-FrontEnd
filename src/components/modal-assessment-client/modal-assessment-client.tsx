@@ -4,6 +4,7 @@ import Button from '../Button/Button';
 import CloseIcon from '../../assets/close-icon.png';
 import RestaurantIcon from '../../assets/ueceana.png';
 import ObservationInput from '../input-observation/input-observation';
+import StarAssessmentClient from '../stars-assessment-client/stars-assessment-client';
 
 type ModalAssessmentClientProps = {
   onClose: () => void;
@@ -56,6 +57,7 @@ const ModalAssessmentClient: React.FC<ModalAssessmentClientProps> = ({ onClose }
             />
 
             <h2>Avalie em estrelas:</h2>
+            <StarAssessmentClient/>
 
           <div className='modal-assessment-client-buttonspace'>
             <Button
