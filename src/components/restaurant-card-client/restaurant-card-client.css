@@ -39,6 +39,9 @@
 }
 
 .restaurant-card-client-infos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 30vh;
     padding: 2vh;
     background-color: rgb(255, 255, 255);

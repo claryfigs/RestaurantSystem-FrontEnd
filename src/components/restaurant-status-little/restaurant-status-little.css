@@ -1,0 +1,27 @@
+.restaurant-status-little{
+    display: flex;
+    flex-direction: line;
+    align-items: center;
+    font-family: var(--fonte-principal);
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--verde);
+}
+.restaurant-iconstatus-little{
+    width: 1.5vh;
+    height: 1.5vh;
+    border-radius: 50%;
+    background-color: var(--verde);
+    margin-right: 1vh;
+}
+
+.restaurant-status-little.closed {
+  color: var(--vermelho-forte);
+}
+
+.restaurant-iconstatus-little.closed {
+  background-color: var(--vermelho-forte);
+}
+
+
+

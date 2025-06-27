@@ -6,6 +6,7 @@ import ItemListClient from '../../components/item-list-client/item-list-client';
 import RestaurantImage from '../../assets/ueceana.png';
 import ModalClientItem from '../../components/modal-client-item/modal-client-item';
 import Stars from '../../components/stars/stars';
+import RestaurantStatus from '../../components/restaurant-status/restaurant-status';
 
 function RestaurantClient() {
   const [favorited, setFavorited] = useState(false);
@@ -58,10 +59,7 @@ function RestaurantClient() {
                 variant="primary"
                 onClick={toggleFavorite}
               />
-              <div className='restaurant-client-status'>
-                <div className='restaurant-client-iconstatus'></div>
-                <p className='restaurant-client-statustext'>Aberto Agora</p>
-              </div>
+              <RestaurantStatus isOpen={true} />
               <p className='restaurant-client-timeopen'>Seg-Sex 08:00-18:00</p>
             </div>
             

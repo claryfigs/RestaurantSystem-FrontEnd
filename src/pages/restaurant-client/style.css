@@ -78,34 +78,11 @@
     width: 12%;
 }
 
-.restaurant-client-status{
-    display: flex;
-    flex-direction: line;
-    align-items: center;
-    margin-top: 1vh;
-}
-
-.restaurant-client-iconstatus{
-    width: 2vh;
-    height: 2vh;
-    border-radius: 50%;
-    background-color: var(--verde);
-    margin-right: 1vh;
-}
-
-.restaurant-client-statustext{
-    font-family: var(--fonte-principal);
-    font-weight: 800;
-    font-size: 1.3rem;
-    color: var(--verde);
-}
-
 .restaurant-client-timeopen{
     font-family: var(--fonte-principal);
     font-weight: 500;
     font-size: 1rem;
     color: var(--cinza-claro);
-
 }
 
 .restaurant-client-box4{
