@@ -5,8 +5,10 @@ import InfoCard from "../../components/info-card";
 import Button from "../../components/Button/Button";
 import deliverFood from "../../assets/deliver-food.png";
 import askingFood from "../../assets/asking-food.png";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className="home-bg">
       <NavbarInstitutional />
@@ -31,7 +33,7 @@ const Home: React.FC = () => {
           />
         </div>
         <div className="home-btn-row">
-          <Button label="Entrar" />
+          <Button label="Entrar" onClick={() => navigate("/login")} />
         </div>
       </div>
     </div>
