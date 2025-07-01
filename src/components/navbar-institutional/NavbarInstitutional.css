@@ -1,0 +1,47 @@
+.navbar-institutional {
+  width: 100vw;
+  height: 56px;
+  background: #ff8c8c;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar-institutional-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  font-family: "Kanit", "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #fff;
+  pointer-events: none;
+}
+
+.navbar-institutional-links {
+  display: flex;
+  gap: 18px;
+  margin-left: auto;
+}
+
+.navbar-institutional-link {
+  color: #fff;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+.navbar-institutional-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
