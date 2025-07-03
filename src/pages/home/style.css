@@ -1,0 +1,73 @@
+.home-bg {
+  min-height: 100vh;
+  background: #ececec;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  min-height: 70vh;
+}
+
+.home-welcome {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.2rem;
+  color: #222;
+  margin-bottom: 32px;
+  margin-top: 18px;
+  text-align: center;
+}
+
+.home-welcome b {
+  font-weight: 700;
+}
+
+.home-cards-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 48px;
+  margin-bottom: 40px;
+}
+
+.home-btn-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .home-cards-row {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .home-cards-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .info-card {
+    width: 90vw;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .home-content {
+    margin-top: 10px;
+  }
+  .home-welcome {
+    font-size: 1rem;
+  }
+}
