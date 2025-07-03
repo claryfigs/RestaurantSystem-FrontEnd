@@ -12,6 +12,19 @@
   z-index: 1000;
 }
 
+.navbar-institutional-left-title {
+  position: relative;
+  left: 0;
+  font-family: "Kanit", "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #fff;
+  margin-right: 32px;
+  display: flex;
+  align-items: center;
+  min-width: 220px;
+}
+
 .navbar-institutional-title {
   position: absolute;
   left: 0;

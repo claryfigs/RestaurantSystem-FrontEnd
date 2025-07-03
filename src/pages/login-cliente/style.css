@@ -1,0 +1,120 @@
+.login-bg {
+  min-height: 100vh;
+  background: #ececec;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-container {
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 2px 16px #00000010;
+  margin-top: 40px;
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  width: 90vw;
+}
+
+.login-content-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+}
+
+.login-img-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-img {
+  width: 260px;
+  max-width: 90vw;
+  height: auto;
+  border-radius: 24px;
+  background: none;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 320px;
+  max-width: 350px;
+  width: 100%;
+}
+
+.login-title {
+  font-family: "Kanit", "Nunito", sans-serif;
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #444;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.login-form label {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.login-form input {
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.login-link {
+  color: #444;
+  text-decoration: underline;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  align-self: flex-start;
+}
+
+.login-form .custom-button {
+  background: #ff8c8c;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 16px;
+  padding: 10px 38px;
+  margin-top: 18px;
+}
+
+.login-register {
+  margin-top: 18px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222;
+  text-align: center;
+}
+.login-register a {
+  color: #b23a3a;
+  text-decoration: underline;
+  font-weight: 800;
+  margin-left: 6px;
+}
+
+@media (max-width: 900px) {
+  .login-content-form {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .login-img {
+    width: 180px;
+  }
+  .login-form {
+    min-width: 0;
+    max-width: 98vw;
+  }
+}
