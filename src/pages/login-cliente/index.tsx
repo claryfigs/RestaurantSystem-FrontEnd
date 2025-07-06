@@ -4,11 +4,43 @@ import NavbarInstitutional from "../../components/navbar-institutional";
 import InputDefault from "../../components/input-default/input-default";
 import Button from "../../components/Button/Button";
 import hamburgerCuate from "../../assets/hamburger-cuate.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginCliente: React.FC = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/auth-token/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password: senha }),
+      });
+      if (!response.ok) {
+        let data;
+        try {
+          data = await response.json();
+        } catch (jsonError) {
+          throw new Error(
+            `Erro HTTP ${response.status}: resposta não é JSON válido`
+          );
+        }
+        const message =
+          data.detail || data.error || `Erro HTTP ${response.status}`;
+        throw new Error(message);
+      }
+      const data = await response.json();
+      localStorage.setItem("authToken", data.token);
+      navigate("/home-client");
+    } catch (err: any) {
+      setError(err.message || "Erro desconhecido ao fazer login.");
+    }
+  };
 
   return (
     <div className="login-bg">
@@ -22,7 +54,7 @@ const LoginCliente: React.FC = () => {
               className="login-img"
             />
           </div>
-          <form className="login-form">
+          <form className="login-form" onSubmit={handleLogin}>
             <h1 className="login-title">Acesso Cliente</h1>
             <label>
               E-mail institucional:
@@ -35,11 +67,13 @@ const LoginCliente: React.FC = () => {
             <label>
               Senha:
               <InputDefault
+                type="password"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
                 placeholder="********"
               />
             </label>
+            {error && <p className="login-error">{error}</p>}
             <Link to="#" className="login-link">
               Esqueci minha senha
             </Link>

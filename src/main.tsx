@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/home";
+import HomeClient from "./pages/home-client";
 import RestaurantClient from "./pages/restaurant-client";
 import FinalizeOrder from "./pages/finalize-order";
 import WalletClient from "./pages/wallet-client";
@@ -25,7 +26,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/login-restaurante" element={<LoginRestaurante />} />
         <Route path="/cadastro-cliente" element={<CadastroCliente />} />
         <Route path="/cadastro-restaurante" element={<CadastroRestaurante />} />
-        <Route path="/home-client" element={<Home />} />
+        <Route path="/home-client" element={<HomeClient />} />
         <Route path="/restaurant-client" element={<RestaurantClient />} />
         <Route path="/finalize-order" element={<FinalizeOrder />} />
         <Route path="/wallet-client" element={<WalletClient />} />
