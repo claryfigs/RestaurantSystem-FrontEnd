@@ -17,6 +17,9 @@ import CadastroCliente from "./pages/cadastro-cliente";
 import CadastroRestaurante from "./pages/cadastro-restaurante";
 import TrackOrderRestaurant from "./pages/track-order-restaurant";
 import OrderRecordRestaurant from "./pages/order-record-restaurant";
+import SuportRestaurant from "./pages/suport-restaurant";
+import SuportClient from "./pages/suport-client";
+import ProfileClient from "./pages/client-profile";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -37,6 +40,9 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/restaurant-profile" element={<RestaurantProfile />} />
         <Route path="/track-order-restaurant" element={<TrackOrderRestaurant />} />
         <Route path="/order-record-restaurant" element={<OrderRecordRestaurant />} />
+        <Route path="/suport-restaurant" element={<SuportRestaurant />} />
+        <Route path="/suport-client" element={<SuportClient />} />
+        <Route path="/client-profile" element={<ProfileClient />} />
         <Route
           path="/cadastro"
           element={

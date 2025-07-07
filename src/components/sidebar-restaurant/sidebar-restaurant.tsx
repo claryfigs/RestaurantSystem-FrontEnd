@@ -31,8 +31,8 @@ const SidebarRestaurant: React.FC = () => {
 
         <p className='sidebar-buttons' onClick={() => handleNavigate('/restaurant-profile')}>Perfil</p>
         <p className='sidebar-buttons' onClick={() => handleNavigate('/track-order-restaurant')}>Pedidos em aberto</p>
-        <p className='sidebar-buttons'onClick={() => handleNavigate('/order-record-restaurant')}>Histórico de pedidos</p>
-        <p className='sidebar-buttons'>Suporte</p>
+        <p className='sidebar-buttons' onClick={() => handleNavigate('/order-record-restaurant')}>Histórico de pedidos</p>
+        <p className='sidebar-buttons' onClick={() => handleNavigate('/suport-restaurant')}>Suporte</p>
         <p className='sidebar-buttons'>Sair</p>
       </div>
     </>
