@@ -35,7 +35,7 @@ const SidebarClient: React.FC = () => {
         <p className='sidebar-buttons' onClick={() => handleNavigate('/wallet-client')}>Carteira</p>
 
         <p className='sidebar-buttons' onClick={() => handleNavigate('/order-record-client')}>Histórico de pedidos</p>
-        <p className='sidebar-buttons'>Perfil</p>
+        <p className='sidebar-buttons' onClick={() => handleNavigate('/client-profile')}>Perfil</p>
         <p className='sidebar-buttons'  onClick={() => handleNavigate('/suport-client')}>Suporte</p>
         <p className='sidebar-buttons'>Sair</p>
       </div>
