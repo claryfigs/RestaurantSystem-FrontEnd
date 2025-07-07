@@ -1,0 +1,52 @@
+.status-tracker {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 2px #ccc;
+  font-family: var(--fonte-principal);
+  user-select: none;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5vh;
+  background-color: #eee;
+  color: #555;
+  font-weight: 500;
+  border-right: 1px solid #ccc;
+  flex: 1;
+  cursor: default;
+}
+
+.status-item.active {
+  background-color: #ff7b7b;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.status-item:last-child {
+  border-right: none;
+}
+
+.checkbox-status-item {
+  width: 3vh;
+  height: 3vh;
+  background-color: white;
+  margin-right: 1vh;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-status-item.completed {
+  background-color: rgb(255, 255, 255);
+}
+
+.image-checked {
+  width: 2vh;
+  height: 2vh;
+}

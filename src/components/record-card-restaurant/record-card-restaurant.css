@@ -1,0 +1,109 @@
+.order-card-client{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 3vh;
+    padding: 2vh;
+    padding-top: 1vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+.order-card-client-head{
+    display: flex;
+    flex-direction: line;
+    justify-content: space-between;
+}
+
+.order-card-client-head2{
+    margin-bottom: 1.5vh;
+    display: flex;
+    flex-direction: line;
+    justify-content: space-between;
+}
+
+.order-card-client-itensbox{
+    background-color: white;
+    border-radius: 3vh;
+    padding: 2vh;
+    padding-top: 1vh;
+    border: 1px solid var(--cinza-escuro);
+}
+
+.order-card-client-itensbox-columns{ /*espaço das colunas*/
+    display: flex;
+    flex-direction: line;
+}
+
+.order-card-client-itensbox-column1{ /*coluna com maior espaçamento*/
+    width: 30%;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.order-card-client-itensbox-column2{ /*coluna com menor espaçamento*/
+    width: 10%;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.order-card-client-itensbox-title{
+    color: var(--cinza-escuro);
+    font-family: var(--fonte-principal);
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.order-card-client-itensbox-subtitle{
+    color: var(--cinza-claro);
+    font-family: var(--fonte-principal);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.order-card-client-itensbox-boxvalue{ /*espaço onde fica a caixa do valor*/
+    display: flex;
+    justify-content: right;
+    margin-top: 2vh;
+}
+
+.order-card-client-itensbox-value{ /*caixa do valor*/
+    display: flex;
+    flex-direction: line;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1vh;
+    width: 23vh;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.order-card-client-itensbox-value-title{
+    color: var(--cinza-escuro);
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.order-card-client-itensbox-value-subtitle{
+    margin-left: 1vh;
+    color: var(--vermelho-forte);
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.order-card-client-boxdescription{ /*Espaço dos dados extras*/
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    white-space: normal;
+}
+
+.order-card-client-boxdescription2{ /*deixa os dados alinhas em linha*/
+    display: flex;
+    flex-direction: line;
+    gap: 0.5vh;
+}
