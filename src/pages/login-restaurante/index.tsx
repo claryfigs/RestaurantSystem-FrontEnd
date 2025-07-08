@@ -37,7 +37,6 @@ const LoginRestaurante: React.FC = () => {
           );
         }
 
-        console.error("Erro no status HTTP:", response.status, data);
         const message =
           data.detail || data.error || `Erro HTTP ${response.status}`;
         throw new Error(message);
@@ -46,7 +45,12 @@ const LoginRestaurante: React.FC = () => {
       const data = await response.json();
       console.log("Login bem-sucedido, dados recebidos:", data);
 
-      localStorage.setItem("authToken", data.token);
+      // Salvar os dados no localStorage
+      localStorage.setItem("accessToken", data.access);
+      localStorage.setItem("refreshToken", data.refresh);
+      localStorage.setItem("userId", data.user_id.toString());
+      localStorage.setItem("userType", data.user_type);
+
       navigate("/restaurant-profile");
     } catch (err: any) {
       console.error("Erro durante o processo de login:", err);

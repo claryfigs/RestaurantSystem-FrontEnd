@@ -21,21 +21,33 @@ const LoginCliente: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password: senha }),
       });
+
       if (!response.ok) {
         let data;
         try {
           data = await response.json();
         } catch (jsonError) {
-          throw new Error(
-            `Erro HTTP ${response.status}: resposta não é JSON válido`
-          );
+          throw new Error(`Erro HTTP ${response.status}: resposta não é JSON válido`);
         }
-        const message =
-          data.detail || data.error || `Erro HTTP ${response.status}`;
+        const message = data.detail || data.error || `Erro HTTP ${response.status}`;
         throw new Error(message);
       }
+
       const data = await response.json();
-      localStorage.setItem("authToken", data.token);
+
+      // Salvando no localStorage
+      localStorage.setItem("accessToken", data.access);
+      localStorage.setItem("refreshToken", data.refresh);
+      localStorage.setItem("userId", String(data.user_id));
+      localStorage.setItem("userType", data.user_type);
+
+      // Logando no console
+      console.log("Login realizado com sucesso!");
+      console.log("Access Token:", data.access);
+      console.log("Refresh Token:", data.refresh);
+      console.log("User ID:", data.user_id);
+      console.log("User Type:", data.user_type);
+
       navigate("/home-client");
     } catch (err: any) {
       setError(err.message || "Erro desconhecido ao fazer login.");
