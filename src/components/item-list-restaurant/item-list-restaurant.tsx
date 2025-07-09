@@ -4,8 +4,6 @@ import ItemCardRestaurant from '../item-card-restaurant/item-card-restaurant';
 import Button from '../Button/Button';
 import ModalAddItem from '../modal-add-item/modal-add-item';
 import ModalEditItem from '../modal-edit-item/modal-edit-item';
-// import ModalCategory from '../modal-category/modal-category';
-// import ModalDeleteCategory from '../modal-delete-category/modal-delete-category';
 
 type MenuItem = {
   id: number;
@@ -17,22 +15,16 @@ type MenuItem = {
 const ItemListRestaurant: React.FC = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  // const [showCategoryModal, setShowCategoryModal] = useState(false);
-  // const [showDeleteModal, setShowDeleteModal] = useState(false); // <-- Novo estado
-
   const [items, setItems] = useState<MenuItem[]>([]);
+  const [selectedItem, setSelectedItem] = useState<any | null>(null);
 
   const handleOpenAddModal = () => setShowAddModal(true);
   const handleCloseAddModal = () => setShowAddModal(false);
 
-  const handleOpenEditModal = () => setShowEditModal(true);
-  const handleCloseEditModal = () => setShowEditModal(false);
-
-  // const handleOpenCategoryModal = () => setShowCategoryModal(true);
-  // const handleCloseCategoryModal = () => setShowCategoryModal(false);
-
-  // const handleOpenDeleteModal = () => setShowDeleteModal(true);
-  // const handleCloseDeleteModal = () => setShowDeleteModal(false);
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+    setSelectedItem(null);
+  };
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -59,7 +51,6 @@ const ItemListRestaurant: React.FC = () => {
         }
 
         const data = await response.json();
-
         setItems(data.results);
       } catch (error) {
         console.error('Erro ao carregar itens:', error);
@@ -69,14 +60,38 @@ const ItemListRestaurant: React.FC = () => {
     fetchItems();
   }, []);
 
+  const handleCardClick = async (id: number) => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        console.error('Token não encontrado.');
+        return;
+      }
+
+      const response = await fetch(`http://localhost:8000/api/v1/menu-items/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao buscar detalhes do item');
+      }
+
+      const data = await response.json();
+      setSelectedItem(data);
+      setShowEditModal(true);
+    } catch (error) {
+      console.error('Erro ao buscar o item:', error);
+    }
+  };
+
   return (
     <div className='item-list-restaurant'>
       <div className='item-list-restaurant-header'>
         <h1>Lista de itens</h1>
         <div className='item-list-restaurant-buttons'>
-          {/* <Button label="Editar categoria" variant="primary" onClick={handleOpenCategoryModal} /> */}
           <Button label="Adicionar item" variant="primary" onClick={handleOpenAddModal} />
-          {/* <Button label="Deletar categoria" variant="secondary" onClick={handleOpenDeleteModal} /> */}
         </div>
       </div>
 
@@ -87,15 +102,18 @@ const ItemListRestaurant: React.FC = () => {
             title={item.name}
             price={item.price}
             image={item.image}
-            onClick={handleOpenEditModal}
+            onClick={() => handleCardClick(item.id)}
           />
         ))}
       </div>
 
       {showAddModal && <ModalAddItem onClose={handleCloseAddModal} />}
-      {showEditModal && <ModalEditItem onClose={handleCloseEditModal} />}
-      {/* {showCategoryModal && <ModalCategory onClose={handleCloseCategoryModal} />}
-      {showDeleteModal && <ModalDeleteCategory onClose={handleCloseDeleteModal} />} */}
+      {showEditModal && selectedItem && (
+        <ModalEditItem
+          onClose={handleCloseEditModal}
+          item={selectedItem}
+        />
+      )}
     </div>
   );
 };

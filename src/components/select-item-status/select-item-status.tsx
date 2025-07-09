@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './select-item-status.css'; // crie esse arquivo
+import './select-item-status.css';
 
 type SelectItemStatusProps = {
   label?: string;
@@ -7,11 +7,11 @@ type SelectItemStatusProps = {
 };
 
 const SelecItemStatus: React.FC<SelectItemStatusProps> = ({ label, onChange }) => {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState('true');
 
   const options = [
-    { label: 'Disponível', value: 'A' },
-    { label: 'Indisponível', value: 'B' },
+    { label: 'Disponível', value: 'true' },
+    { label: 'Indisponível', value: 'false' },
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -25,15 +25,11 @@ const SelecItemStatus: React.FC<SelectItemStatusProps> = ({ label, onChange }) =
       {label && <label>{label}</label>}
       
       <select value={selectedValue} onChange={handleChange} className="custom-select">
-        
-        <option value="" disabled>Selecione</option>
-        
+        <option value="" disabled hidden>Selecione</option>
         {options.map((option) => (
-          
           <option key={option.value} value={option.value}>
             {option.label}
           </option>
-
         ))}
       </select>
     </div>
