@@ -59,6 +59,13 @@ const ModalAddItem: React.FC<ModalAddItemProps> = ({ onClose }) => {
             placeholder="Digite a descrição"
           />
 
+          <p>Categoria do item:</p>
+          <InputDefault
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            placeholder="Digite o nome do item"
+          />
+
           <p>Preço do item:</p>
           <MoneyInput
             value={price}
