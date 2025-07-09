@@ -5,27 +5,30 @@ import ButtonEditRestaurant from '../button-edit-restaurant/button-edit-restaura
 
 type ItemCardRestaurantProps = {
   onClick?: () => void;
+  title: string;
+  price: string;
+  image?: string;
 };
 
-const ItemCardRestaurant: React.FC<ItemCardRestaurantProps> = ({ onClick }) => {
+const ItemCardRestaurant: React.FC<ItemCardRestaurantProps> = ({ onClick, title, price, image }) => {
   return (
     <div className='item-card-restaurant' onClick={onClick} style={{ cursor: 'pointer' }}>
       <div
         className='item-card-restaurant-image'
         style={{
-          backgroundImage: `url(${FoodImage})`,
+          backgroundImage: `url(${image ?? FoodImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div className='item-card-restaurant-top'>
-          <p className='item-card-restaurant-top-text'>Presunto</p>
+          <p className='item-card-restaurant-top-text'>{title}</p>
         </div>
       </div>
 
       <div className='item-card-restaurant-infos'>
         <ButtonEditRestaurant />
-        <p className='item-card-restaurant-infos-title'>20,00</p>
+        <p className='item-card-restaurant-infos-title'>{price}</p>
       </div>
     </div>
   );

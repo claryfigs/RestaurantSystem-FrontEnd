@@ -38,7 +38,7 @@ function RestaurantProfile() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [profile, setProfile] = useState<ProfileData | null>(null);
 
-  const handleOpenCategoryModal = () => setShowCategoryModal(true);
+  // const handleOpenCategoryModal = () => setShowCategoryModal(true);
   const handleCloseCategoryModal = () => setShowCategoryModal(false);
 
   const handleOpenEditModal = () => setShowEditModal(true);
@@ -172,18 +172,16 @@ function RestaurantProfile() {
           <ItemListRestaurant />
 
           {/* Botão para abrir o modal de categoria */}
-          <Button
+          {/* <Button
             label="Criar nova categoria"
             variant="secondary"
             onClick={handleOpenCategoryModal}
-          />
+          /> */}
 
-          {/* Modal de adicionar categoria */}
           {showCategoryModal && (
             <ModalAddCategory onClose={handleCloseCategoryModal} />
           )}
 
-          {/* Modal de editar restaurante */}
           {showEditModal && (
             <ModalEditRestaurant onClose={handleCloseEditModal} />
           )}
