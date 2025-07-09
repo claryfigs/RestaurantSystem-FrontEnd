@@ -32,16 +32,38 @@ function formatTimeRange(openingTime: string, closingTime: string) {
   return `${open} às ${close}`;
 }
 
+type MenuItem = {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  categories: string[];
+  image: string;
+  is_available: boolean;
+  partner_id: number;
+  partner_name: string;
+};
+
 const RestaurantClient: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [restaurant, setRestaurant] = useState<any>(null);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [favorited, setFavorited] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+
+  const handleCardClick = (item: MenuItem) => {
+  if (!isOpen) {
+    alert("O restaurante está fechado, não é possível fazer pedidos no momento");
+    return;
+  }
+  openModal(item);
+};
 
   useEffect(() => {
-    const fetchRestaurant = async () => {
+    const fetchRestaurantAndMenu = async () => {
       try {
         setLoading(true);
         const token = localStorage.getItem("accessToken");
@@ -51,6 +73,7 @@ const RestaurantClient: React.FC = () => {
           return;
         }
 
+        // Buscar dados do restaurante
         const response = await fetch(`${baseUrl}/api/v1/partners/${id}/`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -61,8 +84,23 @@ const RestaurantClient: React.FC = () => {
           throw new Error("Erro ao carregar restaurante");
         }
 
-        const data = await response.json();
-        setRestaurant(data);
+        const restaurantData = await response.json();
+        setRestaurant(restaurantData);
+
+        // Buscar itens do menu
+        const responseMenu = await fetch(`${baseUrl}/api/v1/partners/${id}/menu-items/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!responseMenu.ok) {
+          throw new Error("Erro ao carregar itens do menu");
+        }
+
+        const itemsData = await responseMenu.json();
+        setMenuItems(itemsData);
+
       } catch (err: any) {
         setError(err.message || "Erro desconhecido");
       } finally {
@@ -71,7 +109,7 @@ const RestaurantClient: React.FC = () => {
     };
 
     if (id) {
-      fetchRestaurant();
+      fetchRestaurantAndMenu();
     }
   }, [id]);
 
@@ -79,12 +117,14 @@ const RestaurantClient: React.FC = () => {
     setFavorited(prev => !prev);
   };
 
-  const openModal = () => {
+  const openModal = (item: MenuItem) => {
+    setSelectedItem(item);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setSelectedItem(null);
   };
 
   if (loading) return <p>Carregando restaurante...</p>;
@@ -121,7 +161,7 @@ const RestaurantClient: React.FC = () => {
             <div className="restaurant-client-box2">
               <div className="restaurant-client-box3">
                 <p className="restaurant-client-name">{fullName}</p>
-                <Stars activeStars={3} />
+                <Stars activeStars={5} />
               </div>
 
               <div className="restaurant-client-description">
@@ -141,7 +181,7 @@ const RestaurantClient: React.FC = () => {
               </p>
               
               <p className="restaurant-client-timeopen">Dias abertos:</p>
-              <p className="restaurant-client-timeopen">
+              <p className="restaurant-client-timeopen2">
                 {formatDays(openingDays)}
               </p>
             </div>
@@ -157,10 +197,15 @@ const RestaurantClient: React.FC = () => {
           </div>
 
           <h1>Lista de itens:</h1>
-          <ItemListClient onCardClick={openModal} restaurantId={restaurant.id} />
+          <ItemListClient
+            onCardClick={handleCardClick}
+            items={menuItems}
+          />
 
           {/* Modal */}
-          {isModalOpen && <ModalClientItem onClose={closeModal} />}
+          {isModalOpen && selectedItem && (
+            <ModalClientItem onClose={closeModal} item={selectedItem} />
+          )}
         </div>
       </div>
     </div>
