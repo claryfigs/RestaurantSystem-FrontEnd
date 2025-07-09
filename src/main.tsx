@@ -32,7 +32,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/cadastro-cliente" element={<CadastroCliente />} />
         <Route path="/cadastro-restaurante" element={<CadastroRestaurante />} />
         <Route path="/home-client" element={<HomeClient />} />
-        <Route path="/restaurant-client" element={<RestaurantClient />} />
+        <Route path="/restaurant-client/:id" element={<RestaurantClient />} />
         <Route path="/finalize-order" element={<FinalizeOrder />} />
         <Route path="/wallet-client" element={<WalletClient />} />
         <Route path="/track-order-client" element={<TrackOrderClient />} />
