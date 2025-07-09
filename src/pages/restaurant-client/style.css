@@ -85,6 +85,13 @@
     color: var(--cinza-claro);
 }
 
+.restaurant-client-timeopen2{
+    font-family: var(--fonte-principal);
+    font-weight: 700;
+    font-size: 0.7rem;
+    color: var(--cinza-claro);
+}
+
 .restaurant-client-box4{
     margin-top: 1vh;
     font-family: var(--fonte-principal);

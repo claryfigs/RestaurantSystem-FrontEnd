@@ -11,8 +11,6 @@ const ItemListClient: React.FC<ItemListClientProps> = ({ onCardClick }) => {
     <div className='restaurant-list-client'>
       <ItemCardClient available={true} onClick={onCardClick} />
       <ItemCardClient available={false} onClick={onCardClick} />
-      <ItemCardClient available={true} onClick={onCardClick} />
-      <ItemCardClient available={true} onClick={onCardClick} />
     </div>
   );
 };
