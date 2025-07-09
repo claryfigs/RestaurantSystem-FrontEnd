@@ -8,9 +8,10 @@ type ItemCardRestaurantProps = {
   title: string;
   price: string;
   image?: string;
+  isAvailable: boolean;  // nova prop para disponibilidade
 };
 
-const ItemCardRestaurant: React.FC<ItemCardRestaurantProps> = ({ onClick, title, price, image }) => {
+const ItemCardRestaurant: React.FC<ItemCardRestaurantProps> = ({ onClick, title, price, image, isAvailable }) => {
   return (
     <div className='item-card-restaurant' onClick={onClick} style={{ cursor: 'pointer' }}>
       <div
@@ -28,7 +29,13 @@ const ItemCardRestaurant: React.FC<ItemCardRestaurantProps> = ({ onClick, title,
 
       <div className='item-card-restaurant-infos'>
         <ButtonEditRestaurant />
-        <p className='item-card-restaurant-infos-title'>{price}</p>
+        <p
+          className={`item-card-restaurant-infos-title ${
+            !isAvailable ? 'unavailable' : ''
+          }`}
+        >
+          {isAvailable ? price : 'Indisponível'}
+        </p>
       </div>
     </div>
   );

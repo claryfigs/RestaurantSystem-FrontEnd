@@ -40,6 +40,7 @@
 
 .item-card-restaurant-infos{
     display: flex;
+    align-items: center;
     width: 25vh;
     gap: 2vh;
     padding: 1.5vh;
@@ -58,6 +59,17 @@
     font-family: var(--fonte-principal);
     font-weight: 600;
     font-size: 1.5rem;
+    overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
+    text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
+    white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */
+}
+
+.item-card-restaurant-infos-title.unavailable {
+    margin-right: 1vh;
+    color: var(--vermelho-forte);
+    font-family: var(--fonte-principal);
+    font-weight: 700;
+    font-size: 1rem;
     overflow: hidden;        /* Esconde o conteúdo que ultrapassa as bordas */
     text-overflow: ellipsis; /* Adiciona os "..." no final do texto truncado */
     white-space: nowrap;     /* Garante que o texto permaneça em uma única linha */

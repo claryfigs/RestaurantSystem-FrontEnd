@@ -10,6 +10,7 @@ type MenuItem = {
   name: string;
   price: string;
   image?: string;
+  is_available: boolean;
 };
 
 const ItemListRestaurant: React.FC = () => {
@@ -102,6 +103,7 @@ const ItemListRestaurant: React.FC = () => {
             title={item.name}
             price={item.price}
             image={item.image}
+            isAvailable={item.is_available}
             onClick={() => handleCardClick(item.id)}
           />
         ))}
