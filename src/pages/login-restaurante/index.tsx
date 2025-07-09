@@ -50,6 +50,7 @@ const LoginRestaurante: React.FC = () => {
       localStorage.setItem("refreshToken", data.refresh);
       localStorage.setItem("userId", data.user_id.toString());
       localStorage.setItem("userType", data.user_type);
+      localStorage.setItem("profileId", data.profile_id.toString());
 
       navigate("/restaurant-profile");
     } catch (err: any) {
