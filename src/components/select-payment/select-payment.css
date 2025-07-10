@@ -1,0 +1,28 @@
+.select-container,
+.custom-select,
+.select-container label {
+  font-family: var(--fonte-principal) !important;
+}
+
+.custom-select {
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #b23a3a;
+  background: #fff;
+  color: #b23a3a;
+  outline: none;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  transition: border 0.2s;
+}
+
+.custom-select:focus {
+  border: 2px solid #b23a3a;
+}
+
+.select-container label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+}
