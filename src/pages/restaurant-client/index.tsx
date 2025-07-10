@@ -11,7 +11,6 @@ import "./style.css";
 
 const baseUrl = "http://localhost:8000";
 
-// Mapeamento dos dias da semana inglês → português abreviado
 const daysMap: Record<string, string> = {
   MON: "SEG",
   TUE: "TER",
@@ -27,8 +26,8 @@ function formatDays(openingDays: string[]) {
 }
 
 function formatTimeRange(openingTime: string, closingTime: string) {
-  const open = openingTime.slice(0, 5);   // pega "HH:mm"
-  const close = closingTime.slice(0, 5);  // pega "HH:mm"
+  const open = openingTime.slice(0, 5);
+  const close = closingTime.slice(0, 5);
   return `${open} às ${close}`;
 }
 
@@ -53,14 +52,15 @@ const RestaurantClient: React.FC = () => {
   const [favorited, setFavorited] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+  const [profileId, setProfileId] = useState<number | null>(null); // novo
 
   const handleCardClick = (item: MenuItem) => {
-  if (!isOpen) {
-    alert("O restaurante está fechado, não é possível fazer pedidos no momento");
-    return;
-  }
-  openModal(item);
-};
+    // if (!isOpen) {
+    //   alert("O restaurante está fechado, não é possível fazer pedidos no momento");
+    //   return;
+    // }
+    openModal(item);
+  };
 
   useEffect(() => {
     const fetchRestaurantAndMenu = async () => {
@@ -73,30 +73,25 @@ const RestaurantClient: React.FC = () => {
           return;
         }
 
-        // Buscar dados do restaurante
         const response = await fetch(`${baseUrl}/api/v1/partners/${id}/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        if (!response.ok) {
-          throw new Error("Erro ao carregar restaurante");
-        }
+        if (!response.ok) throw new Error("Erro ao carregar restaurante");
 
         const restaurantData = await response.json();
         setRestaurant(restaurantData);
+        setProfileId(restaurantData.profile_data?.id || null); // novo
 
-        // Buscar itens do menu
         const responseMenu = await fetch(`${baseUrl}/api/v1/partners/${id}/menu-items/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        if (!responseMenu.ok) {
-          throw new Error("Erro ao carregar itens do menu");
-        }
+        if (!responseMenu.ok) throw new Error("Erro ao carregar itens do menu");
 
         const itemsData = await responseMenu.json();
         setMenuItems(itemsData);
@@ -144,10 +139,8 @@ const RestaurantClient: React.FC = () => {
   return (
     <div>
       <NavbarClient />
-
       <div className="restaurant-client">
         <div className="restaurant-client-box">
-          {/* Perfil do restaurante */}
           <div className="restaurant-client-infos">
             <div
               className="restaurant-client-profile"
@@ -179,7 +172,6 @@ const RestaurantClient: React.FC = () => {
               <p className="restaurant-client-timeopen">
                 {formatTimeRange(openingTime, closingTime)}
               </p>
-              
               <p className="restaurant-client-timeopen">Dias abertos:</p>
               <p className="restaurant-client-timeopen2">
                 {formatDays(openingDays)}
@@ -187,13 +179,13 @@ const RestaurantClient: React.FC = () => {
             </div>
           </div>
 
-          {/* Endereço e telefone */}
           <div className="restaurant-client-box4">
             <div className="restaurant-client-box5">
               <p style={{ marginRight: "1vh" }}>{locationDesc}</p>
               <ButtonMap />
             </div>
             <p>{phone}</p>
+            <p>ID do profile_data: {restaurant.profile_data?.id}</p>
           </div>
 
           <h1>Lista de itens:</h1>
@@ -202,9 +194,12 @@ const RestaurantClient: React.FC = () => {
             items={menuItems}
           />
 
-          {/* Modal */}
           {isModalOpen && selectedItem && (
-            <ModalClientItem onClose={closeModal} item={selectedItem} />
+            <ModalClientItem
+              onClose={closeModal}
+              item={selectedItem}
+              profileId={profileId}
+            />
           )}
         </div>
       </div>

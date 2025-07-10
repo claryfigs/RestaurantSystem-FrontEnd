@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './modal-client-item.css';
 import CounterItems from '../counter-items/counter-items';
 import Button from '../Button/Button';
@@ -17,17 +17,46 @@ type Item = {
 type ModalClientItemProps = {
   onClose: () => void;
   item: Item;
+  profileId: number | null;
 };
 
-const ModalClientItem: React.FC<ModalClientItemProps> = ({ onClose, item }) => {
+const ModalClientItem: React.FC<ModalClientItemProps> = ({ onClose, item, profileId }) => {
+  const [count, setCount] = useState<number>(1);
+
   const imageUrl = item.image?.startsWith('http')
     ? item.image
     : `http://localhost:8000${item.image}`;
 
+  const handleAddToCart = () => {
+    const cartItem = {
+      name: item.name,
+      category: item.categories.join(', '),
+      quantity: count,
+      price: (Number(item.price) * count).toFixed(2),
+      itemId: item.id,
+      profileId: profileId,
+      image: imageUrl,
+    };
+
+    // Ler carrinho atual (ou inicializa vazio)
+    const existingCart = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+    // Adiciona novo item
+    existingCart.push(cartItem);
+
+    // Salva de volta no localStorage
+    localStorage.setItem('cartItems', JSON.stringify(existingCart));
+
+    console.log('Item adicionado ao carrinho:', cartItem);
+    console.log('Carrinho atualizado:', existingCart);
+
+    onClose();
+    window.location.reload();
+  };
+
   return (
     <div className="modal-client-item-overlay">
       <div className="modal-client-item-content">
-
         <div className='modal-client-item-header'>
           <img
             src={CloseIcon}
@@ -66,21 +95,23 @@ const ModalClientItem: React.FC<ModalClientItemProps> = ({ onClose, item }) => {
           </div>
 
           <p className='modal-client-item-title'>Quantidade desejada:</p>
-          <CounterItems />
+          <CounterItems count={count} onChange={setCount} />
+
+          <p className='modal-client-item-title'>ID do restaurante (profile_data.id):</p>
+          <h2>{profileId ?? 'ID não disponível'}</h2>
 
           <div className='modal-client-item-infos2'>
             <p className='modal-client-item-title'>Valor total:</p>
-            <p className='modal-client-item-price'>R$ {Number(item.price).toFixed(2)}</p>
+            <p className='modal-client-item-price'>R$ {(Number(item.price) * count).toFixed(2)}</p>
           </div>
 
           <div className='modal-client-item-buttonspace'>
             <Button
               label='Adicionar ao carrinho'
               variant='secondary'
-              onClick={onClose}
+              onClick={handleAddToCart}
             />
           </div>
-
         </div>
       </div>
     </div>
