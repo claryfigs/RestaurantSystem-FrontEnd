@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import './select-local.css'; // crie esse arquivo
+import React, { useEffect, useState } from 'react';
+import './select-local.css';
+
+type LocationOption = {
+  id: number;
+  description: string;
+};
 
 type SelectProps = {
   label?: string;
@@ -8,17 +13,37 @@ type SelectProps = {
 
 const SelectLocal: React.FC<SelectProps> = ({ label, onChange }) => {
   const [selectedValue, setSelectedValue] = useState('');
+  const [options, setOptions] = useState<LocationOption[]>([]);
 
-  const options = [
-    { label: 'Opção A', value: 'A' },
-    { label: 'Opção B', value: 'B' },
-    { label: 'Opção C', value: 'C' },
-  ];
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        const response = await fetch('http://localhost:8000/api/v1/locations/', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Erro ao buscar localizações');
+        }
+
+        const data = await response.json();
+        setOptions(data.results);
+      } catch (error) {
+        console.error('Erro ao carregar localizações:', error);
+      }
+    };
+
+    fetchLocations();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newValue = e.target.value;
     setSelectedValue(newValue);
-    onChange(newValue);
+    onChange(newValue); // envia o id da localização
   };
 
   return (
@@ -26,15 +51,12 @@ const SelectLocal: React.FC<SelectProps> = ({ label, onChange }) => {
       {label && <label>{label}</label>}
       
       <select value={selectedValue} onChange={handleChange} className="custom-select">
-        
         <option value="" disabled>Escolha um local</option>
         
         {options.map((option) => (
-          
-          <option key={option.value} value={option.value}>
-            {option.label}
+          <option key={option.id} value={option.id}>
+            {option.description}
           </option>
-
         ))}
       </select>
     </div>

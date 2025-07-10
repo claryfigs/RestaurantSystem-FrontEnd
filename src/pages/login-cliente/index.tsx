@@ -41,6 +41,10 @@ const LoginCliente: React.FC = () => {
       localStorage.setItem("userId", String(data.user_id));
       localStorage.setItem("userType", data.user_type);
 
+      // Inicializando carrinho vazio no localStorage
+      localStorage.setItem("cartItems", JSON.stringify([]));
+      console.log("Carrinho inicializado:", []);
+
       // Logando no console
       console.log("Login realizado com sucesso!");
       console.log("Access Token:", data.access);

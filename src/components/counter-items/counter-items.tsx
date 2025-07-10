@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './counter-items.css';
 
-const CounterItems: React.FC = () => {
-  const [count, setCount] = useState<number>(1);
+type CounterItemsProps = {
+  count: number;
+  onChange: (newCount: number) => void;
+};
 
+const CounterItems: React.FC<CounterItemsProps> = ({ count, onChange }) => {
   const increase = () => {
-    if (count < 10) setCount(count + 1);
+    if (count < 10) onChange(count + 1);
   };
 
   const decrease = () => {
-    if (count > 1) setCount(count - 1);
+    if (count > 1) onChange(count - 1);
   };
 
   return (
