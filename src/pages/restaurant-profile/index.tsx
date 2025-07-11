@@ -117,7 +117,7 @@ function RestaurantProfile() {
               <div className="restaurant-profile-box3">
                 <h1>
                   {profile
-                    ? `${profile.first_name} ${profile.last_name} - Saldo: R$ ${profile.profile_data?.revenue || '0,00'}`
+                    ? `${profile.first_name} ${profile.last_name}`
                     : 'Carregando...'}
                 </h1>
               </div>

@@ -51,7 +51,7 @@ const RecordCardClient: React.FC<Props> = ({ order }) => {
           {order.status === 'D' && (
             <Button
               label="Avaliar pedido"
-              variant="primary"
+              variant="tertiary"
               onClick={() => setShowModal(true)}
             />
           )}

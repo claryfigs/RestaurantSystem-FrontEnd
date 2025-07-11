@@ -35,3 +35,12 @@
   opacity: 0.7;
 
 }
+
+.custom-button.tertiary {
+  background-color: #ffb23f; /* amarelo principal */
+  color: #ffffff;
+}
+
+.custom-button.tertiary:hover {
+  background-color: #d38f19; /* tom mais escuro no hover */
+}

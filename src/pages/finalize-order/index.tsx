@@ -164,8 +164,8 @@ function FinalizeOrder() {
           <p className='finalize-order-balance'>R$ {creditBalance}</p>
         </div>
 
-        <h2>Valor total do pedido:</h2>
-        <p style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>R$ {totalOrder}</p>
+        {/* <h2>Valor total do pedido:</h2>
+        <p style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>R$ {totalOrder}</p> */}
 
         <h2>• Ao finalizar a compra, o valor do pedido será descontado do saldo.</h2>
         <h2>• Você poderá cancelar o pedido e ser reembolsado em até 3min.</h2>

@@ -25,6 +25,11 @@ const ModalAddItem: React.FC<ModalAddItemProps> = ({ onClose }) => {
   };
 
   const handleCreateItem = async () => {
+    if (!itemName.trim() || !price.trim() || !categories.trim() || !selectedImageFile) {
+      alert('preencha todos os dados');
+      return;
+    }
+
     const token = localStorage.getItem('accessToken');
     const partnerId = localStorage.getItem('profileId');
 
@@ -52,9 +57,7 @@ const ModalAddItem: React.FC<ModalAddItemProps> = ({ onClose }) => {
         formData.append('categories', cat);
       });
 
-      if (selectedImageFile) {
-        formData.append('image', selectedImageFile);
-      }
+      formData.append('image', selectedImageFile);
 
       const response = await fetch(`http://localhost:8000/api/v1/menu-items/`, {
         method: 'POST',

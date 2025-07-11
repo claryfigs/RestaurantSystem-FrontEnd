@@ -97,8 +97,8 @@ const ModalClientItem: React.FC<ModalClientItemProps> = ({ onClose, item, profil
           <p className='modal-client-item-title'>Quantidade desejada:</p>
           <CounterItems count={count} onChange={setCount} />
 
-          <p className='modal-client-item-title'>ID do restaurante (profile_data.id):</p>
-          <h2>{profileId ?? 'ID não disponível'}</h2>
+          {/* <p className='modal-client-item-title'>ID do restaurante (profile_data.id):</p> */}
+          {/* <h2>{profileId ?? 'ID não disponível'}</h2> */}
 
           <div className='modal-client-item-infos2'>
             <p className='modal-client-item-title'>Valor total:</p>

@@ -98,7 +98,7 @@ const RecordCardRestaurant: React.FC = () => {
               <StatusOrderClient status={mapStatus(order.status)} />
               <Button
                 label="Ver avaliação"
-                variant="primary"
+                variant="tertiary"
                 onClick={() => handleOpenModal(order.id)}
               />
             </div>
@@ -127,7 +127,7 @@ const RecordCardRestaurant: React.FC = () => {
                   <p className='order-card-client-itensbox-title'>Valor</p>
                   {order.order_items.map(item => (
                     <p key={item.id} className='order-card-client-itensbox-subtitle'>
-                      R$ {Number(item.unit_price).toFixed(2).replace('.', ',')}
+                      R$ {(Number(item.unit_price) * item.quantity).toFixed(2).replace('.', ',')}
                     </p>
                   ))}
                 </div>

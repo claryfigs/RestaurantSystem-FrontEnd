@@ -185,7 +185,7 @@ const RestaurantClient: React.FC = () => {
               <ButtonMap />
             </div>
             <p>{phone}</p>
-            <p>ID do profile_data: {restaurant.profile_data?.id}</p>
+            {/* <p>ID do profile_data: {restaurant.profile_data?.id}</p> */}
           </div>
 
           <h1>Lista de itens:</h1>
