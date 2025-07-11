@@ -79,7 +79,6 @@ const OrderCardClient: React.FC<{ order: OrderProps }> = ({ order }) => {
       }
 
       setMessage('Entrega confirmada com sucesso!');
-      // Você pode forçar reload ou avisar o pai para recarregar
       window.location.reload();
     } catch (err: any) {
       setMessage(`Erro ao confirmar entrega: ${err.message}`);
@@ -129,11 +128,14 @@ const OrderCardClient: React.FC<{ order: OrderProps }> = ({ order }) => {
 
           <div className='order-card-client-itensbox-column2'>
             <p className='order-card-client-itensbox-title'>Valor</p>
-            {order.order_items.map((item) => (
-              <p key={item.id} className='order-card-client-itensbox-subtitle'>
-                R$ {item.unit_price}
-              </p>
-            ))}
+            {order.order_items.map((item) => {
+              const totalItem = parseFloat(item.unit_price) * item.quantity;
+              return (
+                <p key={item.id} className='order-card-client-itensbox-subtitle'>
+                  R$ {totalItem.toFixed(2)}
+                </p>
+              );
+            })}
           </div>
         </div>
 
