@@ -13,9 +13,8 @@ function FinalizeOrder() {
   const [creditBalance, setCreditBalance] = useState<string>('0.00');
   const [totalOrder, setTotalOrder] = useState<string>('0.00');
 
-  // Defina o ID do cliente (pode vir do contexto, auth ou props)
-  const customerId = '3'; // substitua pelo id correto do cliente logado
-  const baseUrl = 'http://localhost:8000'; // ajuste se necessário
+  const customerId = '3';
+  const baseUrl = 'http://localhost:8000';
 
   useEffect(() => {
     const fetchCustomerData = async () => {
@@ -63,8 +62,24 @@ function FinalizeOrder() {
     setSelectedLocationId(value);
   };
 
-  // Função que verifica saldo x pedido e exibe alert
   const handleConfirmOrder = () => {
+    const storedCart = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+    if (storedCart.length === 0) {
+      alert('Seu carrinho está vazio.');
+      return;
+    }
+
+    // Verificar se todos os profileId são iguais
+    const firstProfileId = storedCart[0].profileId;
+    const allSameProfile = storedCart.every(item => item.profileId === firstProfileId);
+
+    if (!allSameProfile) {
+      alert('não é possível fazer pedidos de restaurantes diferentes');
+      return;
+    }
+
+    // Verificar saldo
     const saldo = parseFloat(creditBalance);
     const pedido = parseFloat(totalOrder);
 
@@ -72,6 +87,10 @@ function FinalizeOrder() {
       alert('Você não possui saldo suficiente');
       return;
     }
+
+    // Se passou, está tudo certo
+    console.log('Pedido confirmado!');
+    alert('Pedido confirmado com sucesso!');
   };
 
   return (
@@ -88,8 +107,8 @@ function FinalizeOrder() {
           <p className='finalize-order-balance'>R$ {creditBalance}</p>
         </div>
 
-        {/* <h2>Valor total do pedido:</h2>
-        <p style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>R$ {totalOrder}</p> */}
+        <h2>Valor total do pedido:</h2>
+        <p style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>R$ {totalOrder}</p>
 
         <h2>• Ao finalizar a compra, o valor do pedido será descontado do saldo.</h2>
         <h2>• Você poderá cancelar o pedido e ser reenbolsado em até 3min.</h2>
@@ -102,13 +121,13 @@ function FinalizeOrder() {
           <ButtonMap />
         </div>
 
-        <h2>Deixe uma observação para o entregador:</h2>
+        <h2>Detalhes:</h2>
 
         <div className='finalize-order-inputspace'>
           <ObservationInput
             value={observation}
             onChange={(e) => setObservation(e.target.value)}
-            placeholder="Digite sua observação"
+            placeholder="Digite seu detalhe"
           />
         </div>
 
