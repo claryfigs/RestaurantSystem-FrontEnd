@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./select-payment.css"; // crie esse arquivo
 
 type SelectProps = {
   label?: string;
   onChange: (value: string) => void;
+  value?: string;
 };
 
-const SelectPayment: React.FC<SelectProps> = ({ label, onChange }) => {
-  const [selectedValue, setSelectedValue] = useState("");
+const SelectPayment: React.FC<SelectProps> = ({ label, onChange, value }) => {
+  const [selectedValue, setSelectedValue] = useState(value || "");
+
+  useEffect(() => {
+    setSelectedValue(value || "");
+  }, [value]);
 
   const options = [
     { label: "Crédito", value: "C" },

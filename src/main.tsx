@@ -38,8 +38,14 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/track-order-client" element={<TrackOrderClient />} />
         <Route path="/order-record-client" element={<OrderRecordClient />} />
         <Route path="/restaurant-profile" element={<RestaurantProfile />} />
-        <Route path="/track-order-restaurant" element={<TrackOrderRestaurant />} />
-        <Route path="/order-record-restaurant" element={<OrderRecordRestaurant />} />
+        <Route
+          path="/track-order-restaurant"
+          element={<TrackOrderRestaurant />}
+        />
+        <Route
+          path="/order-record-restaurant"
+          element={<OrderRecordRestaurant />}
+        />
         <Route path="/suport-restaurant" element={<SuportRestaurant />} />
         <Route path="/suport-client" element={<SuportClient />} />
         <Route path="/client-profile" element={<ProfileClient />} />
