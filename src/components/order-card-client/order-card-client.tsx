@@ -40,7 +40,7 @@ const OrderCardClient: React.FC<{ order: OrderProps }> = ({ order }) => {
   const translateStatus = (status: string) => {
     switch (status) {
       case 'S':
-        return 'em_preparo';
+        return 'enviado';
       case 'P':
         return 'em_preparo';
       case 'O':
@@ -163,7 +163,7 @@ const OrderCardClient: React.FC<{ order: OrderProps }> = ({ order }) => {
         <Button
           label="Cancelar pedido"
           variant="primary"
-          disabled={statusTranslated !== 'em_preparo'}
+          disabled={statusTranslated !== 'enviado'}
           onClick={openCancelModal}
         />
       </div>
