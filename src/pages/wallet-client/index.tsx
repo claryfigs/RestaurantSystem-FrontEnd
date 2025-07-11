@@ -1,51 +1,64 @@
 import "./style.css";
 import { useState, useEffect } from "react";
-// import axios from "axios";
 import NavbarClient from "../../components/navbar-client/navbar-client";
 import SelectPayment from "../../components/select-payment/select-payment";
 import MoneyInput from "../../components/input-money/input-money";
 import Button from "../../components/Button/Button";
 
+interface ProfileData {
+  id: number;
+  enrollment_id: string;
+  credit_balance: string;
+}
+
+interface UserData {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  user_type: string;
+  phone_number: string;
+  profile_image: string | null;
+  profile_data: ProfileData;
+}
+
 function WalletClient() {
-  const [value, setValue] = useState("00,00"); // valor do input
+  const [value, setValue] = useState("00,00");
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [balance, setBalance] = useState(0); // será carregado da API
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [userId, setUserId] = useState<number | null>(null); // ID do usuário autenticado
+  const [userData, setUserData] = useState<UserData | null>(null);
 
-  // Buscar saldo atual do usuário na inicialização
+  // Buscar dados do usuário na inicialização
   useEffect(() => {
-    const fetchBalance = async () => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        setError("Token não encontrado. Faça login novamente.");
+        return;
+      }
+
       try {
-        const token = localStorage.getItem("accessToken");
-        const baseUrl = "http://localhost:8000";
-        const response = await fetch(`${baseUrl}/api/v1/my-data/`, {
+        const response = await fetch("http://localhost:8000/api/v1/my-data/", {
           headers: {
             "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            Authorization: `Bearer ${token}`,
           },
         });
 
         if (!response.ok) {
-          throw new Error("Erro ao carregar dados do usuário");
+          throw new Error(`Erro ao buscar dados: ${response.status}`);
         }
 
-        const userData = await response.json();
-        if (userData && userData.balance !== undefined) {
-          setBalance(userData.balance);
-        }
-        if (userData && userData.id) {
-          setUserId(userData.id);
-        }
+        const data = await response.json();
+        setUserData(data);
       } catch (err: any) {
-        console.error("Erro ao carregar saldo:", err);
-        // Mantém o valor padrão se não conseguir carregar
+        console.error("Erro ao carregar dados do usuário:", err);
       }
     };
 
-    fetchBalance();
+    fetchUserData();
   }, []);
 
   const handleSelectChange = (val: string) => {
@@ -71,17 +84,16 @@ function WalletClient() {
       setError("Selecione um método de pagamento válido.");
       return;
     }
-    if (!userId) {
+    if (!userData?.id) {
       setError("Usuário não identificado. Faça login novamente.");
       return;
     }
     setLoading(true);
     try {
-      // Busca token se necessário (ajuste conforme sua autenticação)
       const token = localStorage.getItem("accessToken");
       const baseUrl = "http://localhost:8000";
       const response = await fetch(
-        `${baseUrl}/api/v1/customers/${userId}/add-credits/`,
+        `${baseUrl}/api/v1/customers/${userData.id}/add-credits/`,
         {
           method: "PATCH",
           headers: {
@@ -105,13 +117,28 @@ function WalletClient() {
           data.detail || data.error || "Erro ao adicionar saldo."
         );
       }
-      const data = await response.json();
-      if (data && data.balance !== undefined) {
-        setBalance(data.balance);
-      } else {
-        setBalance((prev) => prev + amount);
+      await response.json();
+
+      // Buscar dados atualizados da API após adicionar créditos
+      const updatedResponse = await fetch(`${baseUrl}/api/v1/my-data/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (updatedResponse.ok) {
+        const updatedData = await updatedResponse.json();
+        setUserData(updatedData);
+        // Disparar evento personalizado para atualizar a navbar
+        window.dispatchEvent(
+          new CustomEvent("balanceUpdated", { detail: updatedData })
+        );
       }
+
       setSuccess("Saldo adicionado com sucesso!");
+      setValue("00,00");
+      setPaymentMethod("");
     } catch (err: any) {
       setError(err.message || "Erro ao adicionar saldo. Tente novamente.");
     } finally {
@@ -129,7 +156,7 @@ function WalletClient() {
         <div className="wallet-client-balance">
           <span className="wallet-client-balance-title">Seu saldo:</span>
           <span className="wallet-client-balance-text">
-            R$ {balance.toFixed(2).replace(".", ",")}
+            {userData?.profile_data?.credit_balance || "R$ 0,00"}
           </span>
         </div>
 
@@ -137,7 +164,7 @@ function WalletClient() {
         <h2>Escolha um método para adicionar saldo na carteira.</h2>
 
         <div className="wallet-client-space">
-          <SelectPayment onChange={handleSelectChange} />
+          <SelectPayment onChange={handleSelectChange} value={paymentMethod} />
         </div>
         <div style={{ margin: "8px 0" }}>
           <small>Métodos: Crédito (C), Boleto (B), Pix (P)</small>

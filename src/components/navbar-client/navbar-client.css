@@ -10,17 +10,32 @@
   box-shadow: 0px 0px 15px #00000010;
 }
 
-.navbar-sidebar-space{
+.navbar-sidebar-space {
   width: 7vh;
   height: 7vh;
 }
 
-.navbar-car-space{
+.navbar-balance-car-space {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 10px;
+}
+
+.navbar-balance {
+  font-family: var(--fonte-principal);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #b23a3a;
+  white-space: nowrap;
+}
+
+.navbar-car-space {
   width: 7vh;
   height: 7vh;
 }
 
-.navbar-title{
+.navbar-title {
   width: 100%;
   text-align: center;
   align-content: center;
