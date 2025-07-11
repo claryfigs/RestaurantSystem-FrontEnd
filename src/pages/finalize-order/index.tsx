@@ -12,10 +12,12 @@ function FinalizeOrder() {
   const [observation, setObservation] = useState('');
   const [creditBalance, setCreditBalance] = useState<string>('0.00');
   const [totalOrder, setTotalOrder] = useState<string>('0.00');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const customerId = '3';
+  const customerId = localStorage.getItem('userId') || '';
   const baseUrl = 'http://localhost:8000';
 
+  // Busca saldo do cliente
   useEffect(() => {
     const fetchCustomerData = async () => {
       try {
@@ -38,9 +40,12 @@ function FinalizeOrder() {
       }
     };
 
-    fetchCustomerData();
+    if (customerId) {
+      fetchCustomerData();
+    }
   }, [customerId, baseUrl]);
 
+  // Calcula total do carrinho
   useEffect(() => {
     function calculateTotal() {
       const storedCart = JSON.parse(localStorage.getItem('cartItems') || '[]');
@@ -62,35 +67,87 @@ function FinalizeOrder() {
     setSelectedLocationId(value);
   };
 
-  const handleConfirmOrder = () => {
-    const storedCart = JSON.parse(localStorage.getItem('cartItems') || '[]');
+  const handleConfirmOrder = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
 
-    if (storedCart.length === 0) {
-      alert('Seu carrinho está vazio.');
-      return;
+    try {
+      const storedCart = JSON.parse(localStorage.getItem('cartItems') || '[]');
+
+      if (storedCart.length === 0) {
+        alert('Seu carrinho está vazio.');
+        return;
+      }
+
+      // Verifica se todos os profileId são iguais
+      const firstProfileId = storedCart[0].profileId;
+      const allSameProfile = storedCart.every(item => item.profileId === firstProfileId);
+
+      if (!allSameProfile) {
+        alert('Não é possível fazer pedidos de restaurantes diferentes.');
+        return;
+      }
+
+      // Verifica saldo
+      const saldo = parseFloat(creditBalance);
+      const pedido = parseFloat(totalOrder);
+
+      if (pedido > saldo) {
+        alert('Você não possui saldo suficiente.');
+        return;
+      }
+
+      // Verifica local de entrega
+      if (!selectedLocationId) {
+        alert('Selecione um local de entrega.');
+        return;
+      }
+
+      // Monta order_items
+      const order_items = storedCart.map((item: any) => ({
+        menu_item: item.itemId,
+        quantity: item.quantity,
+      }));
+
+      // Monta corpo do pedido
+      const token = localStorage.getItem('accessToken');
+      const requestBody = {
+        delivery_location: Number(selectedLocationId),
+        order_items,
+        partner: Number(firstProfileId),
+        customer: Number(customerId),
+        details: observation
+      };
+
+      console.log('Enviando pedido:', requestBody);
+
+      const response = await fetch(`${baseUrl}/api/v1/orders/`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Erro na API:', errorData);
+        alert('Erro ao enviar pedido. Verifique os dados e tente novamente.');
+        return;
+      }
+
+      // Sucesso!
+      alert('Pedido confirmado com sucesso!');
+      localStorage.removeItem('cartItems');
+      window.location.reload();
+
+    } catch (error) {
+      console.error('Erro ao enviar pedido:', error);
+      alert('Erro ao enviar pedido. Tente novamente mais tarde.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // Verificar se todos os profileId são iguais
-    const firstProfileId = storedCart[0].profileId;
-    const allSameProfile = storedCart.every(item => item.profileId === firstProfileId);
-
-    if (!allSameProfile) {
-      alert('não é possível fazer pedidos de restaurantes diferentes');
-      return;
-    }
-
-    // Verificar saldo
-    const saldo = parseFloat(creditBalance);
-    const pedido = parseFloat(totalOrder);
-
-    if (pedido > saldo) {
-      alert('Você não possui saldo suficiente');
-      return;
-    }
-
-    // Se passou, está tudo certo
-    console.log('Pedido confirmado!');
-    alert('Pedido confirmado com sucesso!');
   };
 
   return (
@@ -111,7 +168,7 @@ function FinalizeOrder() {
         <p style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>R$ {totalOrder}</p>
 
         <h2>• Ao finalizar a compra, o valor do pedido será descontado do saldo.</h2>
-        <h2>• Você poderá cancelar o pedido e ser reenbolsado em até 3min.</h2>
+        <h2>• Você poderá cancelar o pedido e ser reembolsado em até 3min.</h2>
 
         <h1>Selecione o local de entrega:</h1>
         <h2>Use o mapa para selecionar em qual local da UECE você gostaria de receber o pedido:</h2>
@@ -122,7 +179,6 @@ function FinalizeOrder() {
         </div>
 
         <h2>Detalhes:</h2>
-
         <div className='finalize-order-inputspace'>
           <ObservationInput
             value={observation}
@@ -132,7 +188,12 @@ function FinalizeOrder() {
         </div>
 
         <div className='finalize-order-buttonspace'>
-          <Button label="Confirmar pedido" variant="secondary" onClick={handleConfirmOrder} />
+          <Button
+            label={isSubmitting ? "Enviando..." : "Confirmar pedido"}
+            variant="secondary"
+            onClick={handleConfirmOrder}
+            disabled={isSubmitting}
+          />
         </div>
       </div>
     </div>
