@@ -4,15 +4,11 @@ import Button from '../Button/Button';
 
 type ModalCancelOrderProps = {
   onClose: () => void;
+  onConfirmCancel: () => void;
+  loading: boolean;
 };
 
-const ModalCancelOrder: React.FC<ModalCancelOrderProps> = ({ onClose }) => {
-  const handleCancel = () => {
-    // Aqui você pode colocar lógica real de cancelamento do pedido
-    console.log("Pedido cancelado!");
-    onClose();
-  };
-
+const ModalCancelOrder: React.FC<ModalCancelOrderProps> = ({ onClose, onConfirmCancel, loading }) => {
   return (
     <div className="modal-cancel-order-overlay">
       <div className="modal-cancel-order-box">
@@ -21,9 +17,8 @@ const ModalCancelOrder: React.FC<ModalCancelOrderProps> = ({ onClose }) => {
         
         <div className="modal-cancel-order-buttons">
           <Button label="Manter pedido" variant="primary" onClick={onClose} />
-          <Button label="Cancelar pedido" variant="secondary" onClick={handleCancel} />
+          <Button label={loading ? "Cancelando..." : "Cancelar pedido"} variant="secondary" onClick={onConfirmCancel} disabled={loading} />
         </div>
-      
       </div>
     </div>
   );

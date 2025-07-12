@@ -3,6 +3,7 @@ import './order-card-client.css';
 import Button from '../Button/Button';
 import StatusOrderClient from '../status-order-client/status-order-client';
 import ModalCancelOrder from '../modal-cancel-order/modal-cancel-order';
+import { useNavigate } from 'react-router-dom';
 
 type OrderItem = {
   id: number;
@@ -31,12 +32,11 @@ type OrderProps = {
 const OrderCardClient: React.FC<{ order: OrderProps }> = ({ order }) => {
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const openCancelModal = () => setShowCancelModal(true);
   const closeCancelModal = () => setShowCancelModal(false);
 
-  // Tradução de status
   const translateStatus = (status: string) => {
     switch (status) {
       case 'S':
@@ -48,7 +48,7 @@ const OrderCardClient: React.FC<{ order: OrderProps }> = ({ order }) => {
       case 'D':
         return 'entregue';
       case 'C':
-        return 'desconhecido';
+        return 'cancelado';
       default:
         return 'desconhecido';
     }
@@ -56,10 +56,9 @@ const OrderCardClient: React.FC<{ order: OrderProps }> = ({ order }) => {
 
   const statusTranslated = translateStatus(order.status);
 
-  // ✅ Função para confirmar entrega
+  // ✅ Confirmar entrega
   const handleConfirmDelivery = async () => {
     setLoading(true);
-    setMessage(null);
     try {
       const token = localStorage.getItem('accessToken');
       if (!token) throw new Error('Token não encontrado.');
@@ -78,10 +77,40 @@ const OrderCardClient: React.FC<{ order: OrderProps }> = ({ order }) => {
         throw new Error(`Erro ${res.status}: ${text}`);
       }
 
-      setMessage('Entrega confirmada com sucesso!');
+      alert('Entrega confirmada com sucesso!');
+      navigate('/order-record-client');
+    } catch (err: any) {
+      alert(`Erro ao confirmar entrega: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ✅ Cancelar pedido
+  const handleCancelOrder = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) throw new Error('Token não encontrado.');
+
+      const res = await fetch(`http://localhost:8000/api/v1/orders/${order.id}/update-status/`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: 'C' }),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Erro ${res.status}: ${text}`);
+      }
+
+      alert('Pedido cancelado com sucesso!');
       window.location.reload();
     } catch (err: any) {
-      setMessage(`Erro ao confirmar entrega: ${err.message}`);
+      alert(`Erro ao cancelar pedido: ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -103,8 +132,6 @@ const OrderCardClient: React.FC<{ order: OrderProps }> = ({ order }) => {
           onClick={handleConfirmDelivery}
         />
       </div>
-
-      {message && <p className="order-card-client-message">{message}</p>}
 
       <div className='order-card-client-itensbox'>
         <div className='order-card-client-itensbox-columns'>
@@ -163,12 +190,18 @@ const OrderCardClient: React.FC<{ order: OrderProps }> = ({ order }) => {
         <Button
           label="Cancelar pedido"
           variant="primary"
-          disabled={statusTranslated !== 'enviado'}
+          disabled={statusTranslated !== 'enviado' || loading}
           onClick={openCancelModal}
         />
       </div>
 
-      {showCancelModal && <ModalCancelOrder onClose={closeCancelModal} />}
+      {showCancelModal && (
+        <ModalCancelOrder
+          onClose={closeCancelModal}
+          onConfirmCancel={handleCancelOrder}
+          loading={loading}
+        />
+      )}
     </div>
   );
 };

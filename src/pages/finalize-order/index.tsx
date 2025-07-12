@@ -6,6 +6,7 @@ import SelectLocal from '../../components/select-local/select-local';
 import ButtonMap from '../../components/button-map/button-map';
 import ObservationInput from '../../components/input-observation/input-observation';
 import Button from '../../components/Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 function FinalizeOrder() {
   const [selectedLocationId, setSelectedLocationId] = useState<string>('');
@@ -140,7 +141,7 @@ function FinalizeOrder() {
       // Sucesso!
       alert('Pedido confirmado com sucesso!');
       localStorage.removeItem('cartItems');
-      window.location.reload();
+      navigate('/track-order-client');
 
     } catch (error) {
       console.error('Erro ao enviar pedido:', error);
@@ -149,6 +150,8 @@ function FinalizeOrder() {
       setIsSubmitting(false);
     }
   };
+
+  const navigate = useNavigate();
 
   return (
     <div>

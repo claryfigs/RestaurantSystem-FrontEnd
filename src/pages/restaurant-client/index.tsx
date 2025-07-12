@@ -55,10 +55,10 @@ const RestaurantClient: React.FC = () => {
   const [profileId, setProfileId] = useState<number | null>(null); // novo
 
   const handleCardClick = (item: MenuItem) => {
-    // if (!isOpen) {
-    //   alert("O restaurante está fechado, não é possível fazer pedidos no momento");
-    //   return;
-    // }
+    if (!isOpen) {
+      alert("O restaurante está fechado, não é possível fazer pedidos no momento");
+      return;
+    }
     openModal(item);
   };
 
