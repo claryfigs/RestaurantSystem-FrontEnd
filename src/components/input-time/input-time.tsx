@@ -2,28 +2,32 @@ import React from "react";
 import "./input-time.css";
 
 interface InputTimeProps {
-  value: string; // formato: "15:09:09.413Z"
-  onChange: (value: string) => void; // também retorna nesse formato
+  value: string;         // esperado: "HH:mm:ss.SSSZ"
+  onChange: (value: string) => void;
   placeholder?: string;
 }
 
-const formatToHHMM = (isoTime: string): string => {
-  const date = new Date(isoTime);
-  return date.toISOString().substring(11, 16); // pega "HH:mm"
+/**
+ * Converte "HH:mm:ss.SSSZ" para "HH:mm" para exibir no <input type="time">
+ */
+const formatToHHMM = (apiTime: string): string => {
+  if (!apiTime) return '';
+  return apiTime.substring(0, 5); // "20:48:53.336Z" -> "20:48"
 };
 
-const formatToISOString = (hhmm: string): string => {
+/**
+ * Converte "HH:mm" (do input) para "HH:mm:ss.SSSZ" para API
+ */
+const formatToAPITime = (hhmm: string): string => {
   const [hours, minutes] = hhmm.split(":");
-  const now = new Date();
-  now.setUTCHours(Number(hours), Number(minutes), 0, 0);
-  return now.toISOString(); // retorna em formato ISO (com Z no final)
+  return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:00.000Z`;
 };
 
 const InputTime: React.FC<InputTimeProps> = ({ value, onChange, placeholder }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    const isoString = formatToISOString(newValue);
-    onChange(isoString);
+    const newValue = e.target.value; // "HH:mm"
+    const apiTime = formatToAPITime(newValue); // "HH:mm:00.000Z"
+    onChange(apiTime);
   };
 
   return (

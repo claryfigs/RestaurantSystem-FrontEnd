@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './checkbox-days.css';
+
+type CheckboxDaysProps = {
+  value: string[];
+  onChange: (value: string[]) => void;
+};
 
 const days = [
   { label: 'Seg', value: 'MON' },
@@ -10,15 +15,13 @@ const days = [
   { label: 'Sáb', value: 'SAT' },
 ];
 
-const CheckboxDays: React.FC = () => {
-  const [selectedDays, setSelectedDays] = useState<string[]>([]);
+const CheckboxDays: React.FC<CheckboxDaysProps> = ({ value, onChange }) => {
+  const handleCheckboxChange = (dayValue: string) => {
+    const newSelected = value.includes(dayValue)
+      ? value.filter((day) => day !== dayValue)
+      : [...value, dayValue];
 
-  const handleCheckboxChange = (value: string) => {
-    setSelectedDays((prevSelected) =>
-      prevSelected.includes(value)
-        ? prevSelected.filter((day) => day !== value)
-        : [...prevSelected, value]
-    );
+    onChange(newSelected);
   };
 
   return (
@@ -28,7 +31,7 @@ const CheckboxDays: React.FC = () => {
           <input
             type="checkbox"
             value={day.value}
-            checked={selectedDays.includes(day.value)}
+            checked={value.includes(day.value)}
             onChange={() => handleCheckboxChange(day.value)}
           />
           {day.label}

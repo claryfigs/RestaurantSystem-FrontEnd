@@ -56,10 +56,10 @@ const RestaurantClient: React.FC = () => {
   const [averageRating, setAverageRating] = useState<number>(0);
 
   const handleCardClick = (item: MenuItem) => {
-    if (!isOpen) {
-      alert("O restaurante está fechado, não é possível fazer pedidos no momento");
-      return;
-    }
+    // if (!isOpen) {
+    //   alert("O restaurante está fechado, não é possível fazer pedidos no momento");
+    //   return;
+    // }
     openModal(item);
   };
 

@@ -183,7 +183,10 @@ function RestaurantProfile() {
           )}
 
           {showEditModal && (
-            <ModalEditRestaurant onClose={handleCloseEditModal} />
+            <ModalEditRestaurant
+              onClose={handleCloseEditModal}
+              profile={profile}
+            />
           )}
         </div>
       </div>

@@ -166,9 +166,9 @@ function WalletClient() {
         <div className="wallet-client-space">
           <SelectPayment onChange={handleSelectChange} value={paymentMethod} />
         </div>
-        <div style={{ margin: "8px 0" }}>
+        {/* <div style={{ margin: "8px 0" }}>
           <small>Métodos: Crédito (C), Boleto (B), Pix (P)</small>
-        </div>
+        </div> */}
 
         <h2>Quanto você deseja adicionar?</h2>
 
