@@ -87,14 +87,14 @@ const ModalAssessmentClient: React.FC<ModalAssessmentClientProps> = ({ onClose, 
             <p>PEDIDO {orderId}</p>
           </div>
           
-          <h2>Review text:</h2>
+          <h2>Comentário:</h2>
           <ObservationInput
             value={observation}
             onChange={(e) => setObservation(e.target.value)}
             placeholder="Digite seu comentário"
           />
 
-          <h2>Rating:</h2>
+          <h2>Estrelas:</h2>
           <StarAssessmentClient onChange={(value) => setRating(value)} />
 
           <div className='modal-assessment-client-buttonspace'>
