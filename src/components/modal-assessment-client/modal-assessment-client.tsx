@@ -8,18 +8,58 @@ import StarAssessmentClient from '../stars-assessment-client/stars-assessment-cl
 
 type ModalAssessmentClientProps = {
   onClose: () => void;
+  orderId: number;
 };
 
-const ModalAssessmentClient: React.FC<ModalAssessmentClientProps> = ({ onClose }) => {
+const ModalAssessmentClient: React.FC<ModalAssessmentClientProps> = ({ onClose, orderId }) => {
+  const [observation, setObservation] = useState('');
+  const [rating, setRating] = useState(5);
 
-    const [observation, setObservation] = useState('');
+  const handleSubmit = async () => {
+    if (!observation) {
+      alert('Por favor, preencha o comentário.');
+      return;
+    }
 
-    return (
+    const token = localStorage.getItem('accessToken');
+
+    if (!token) {
+      alert('Usuário não autenticado.');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/order-reviews/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          order: orderId,
+          rating,
+          review_text: observation
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Erro ao enviar avaliação:', errorData);
+        alert('Erro ao enviar avaliação.');
+      } else {
+        alert('Avaliação enviada com sucesso!');
+        onClose();
+      }
+    } catch (error) {
+      console.error('Erro inesperado:', error);
+      alert('Erro ao enviar avaliação.');
+    }
+  };
+
+  return (
     <div className="modal-assessment-client-overlay">
       <div className="modal-assessment-client-content">
-
         <div className='modal-assessment-client-header'>
-          
           <img
             src={CloseIcon}
             alt='Ícone de fechamento'
@@ -27,46 +67,42 @@ const ModalAssessmentClient: React.FC<ModalAssessmentClientProps> = ({ onClose }
             onClick={onClose}
             style={{ cursor: 'pointer' }}
           />
-
         </div>
 
         <div className='modal-client-assessment-infos'>
+          <div className='modal-assessment-client-infosbox'>
+            <h1>Avalie sua experiência</h1>
+          </div>
 
-            <div className='modal-assessment-client-infosbox'>
-                <h1>Avalie sua experiência</h1>
-            </div>
+          <div className='modal-assessment-client-infosrestaurant'>
+            <div
+              className='modal-assessment-client-image'
+              style={{
+                backgroundImage: `url(${RestaurantIcon})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            ></div>
+            <p>PEDIDO {orderId}</p>
+          </div>
+          
+          <h2>Review text:</h2>
+          <ObservationInput
+            value={observation}
+            onChange={(e) => setObservation(e.target.value)}
+            placeholder="Digite seu comentário"
+          />
 
-            <div className='modal-assessment-client-infosrestaurant'>
-                <div
-                className='modal-assessment-client-image'
-                style={{
-                    backgroundImage: `url(${RestaurantIcon})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                }}>
-                </div>
-                <p>UECEANA - PEDIDO #1234</p>
-            </div>
-            
-            <h2>Deixe um comentário:</h2>
-
-            <ObservationInput
-              value={observation}
-              onChange={(e) => setObservation(e.target.value)}
-              placeholder="Digite seu comentário"
-            />
-
-            <h2>Avalie em estrelas:</h2>
-            <StarAssessmentClient/>
+          <h2>Rating:</h2>
+          <StarAssessmentClient onChange={(value) => setRating(value)} />
 
           <div className='modal-assessment-client-buttonspace'>
             <Button
               label='Enviar avaliação'
               variant='primary'
-              onClick={onClose}
+              onClick={handleSubmit}
             />
           </div>
-
         </div>
       </div>
     </div>

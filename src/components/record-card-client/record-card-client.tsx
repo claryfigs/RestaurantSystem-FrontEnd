@@ -33,7 +33,6 @@ type Props = {
 const RecordCardClient: React.FC<Props> = ({ order }) => {
   const [showModal, setShowModal] = useState(false);
 
-  // traduzir status para o componente de status
   let statusForComponent: 'entregue' | 'cancelado';
   if (order.status === 'D') statusForComponent = 'entregue';
   else statusForComponent = 'cancelado';
@@ -107,7 +106,12 @@ const RecordCardClient: React.FC<Props> = ({ order }) => {
         </div>
       </div>
 
-      {showModal && <ModalAssessmentClient onClose={() => setShowModal(false)} />}
+      {showModal && (
+        <ModalAssessmentClient
+          onClose={() => setShowModal(false)}
+          orderId={order.id}
+        />
+      )}
     </>
   );
 };
