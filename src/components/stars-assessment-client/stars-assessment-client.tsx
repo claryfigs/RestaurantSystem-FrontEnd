@@ -3,11 +3,17 @@ import './stars-assessment-client.css';
 import StarOn from '../../assets/star-on-icon.png';
 import StarOff from '../../assets/star-off-icon.png';
 
-const StarAssessmentClient: React.FC = () => {
-  const [rating, setRating] = useState(5); // Começa com todas as estrelas ativas
+type Props = {
+  onChange: (rating: number) => void;
+};
+
+const StarAssessmentClient: React.FC<Props> = ({ onChange }) => {
+  const [rating, setRating] = useState(5);
 
   const handleClick = (index: number) => {
-    setRating(index + 1); // index começa do 0, por isso +1
+    const newRating = index + 1;
+    setRating(newRating);
+    onChange(newRating);
   };
 
   return (
