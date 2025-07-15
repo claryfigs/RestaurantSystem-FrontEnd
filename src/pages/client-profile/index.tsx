@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './style.css';
 import NavbarClient from '../../components/navbar-client/navbar-client';
 import Button from '../../components/Button/Button';
+import ModalEditClient from '../../components/modal-edit-client/modal-edit-client';
 
 interface ProfileData {
   id: number;
@@ -23,6 +24,7 @@ interface UserData {
 function ProfileClient() {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -36,8 +38,8 @@ function ProfileClient() {
         const response = await fetch('http://localhost:8000/api/v1/my-data/', {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
+            'Authorization': `Bearer ${token}`,
+          },
         });
 
         if (!response.ok) {
@@ -67,13 +69,22 @@ function ProfileClient() {
           ) : (
             <>
               <div className='client-profile-infos1'>
-                <div className='client-profile-image'>
-                  {userData.profile_image ? (
-                    <img src={userData.profile_image} alt="Foto de perfil" />
-                  ) : (
+                <div
+                  className='client-profile-image'
+                  style={{
+                    backgroundImage: userData.profile_image
+                      ? `url(${userData.profile_image})`
+                      : 'none',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundColor: userData.profile_image ? 'transparent' : '#ccc',
+                  }}
+                >
+                  {!userData.profile_image && (
                     <div className="client-profile-placeholder-image"></div>
                   )}
                 </div>
+
                 <div className='client-profile-infos2'>
                   <h1>{userData.first_name} {userData.last_name}</h1>
                   <h1>Saldo da carteira: {userData.profile_data.credit_balance}</h1>
@@ -84,7 +95,11 @@ function ProfileClient() {
                 <h2>Matrícula: {userData.profile_data.enrollment_id}</h2>
                 <h2>Telefone: {userData.phone_number}</h2>
                 <h2>Email: {userData.email}</h2>
-                <Button label="Editar informações" variant="primary" />
+                <Button
+                  label="Editar informações"
+                  variant="primary"
+                  onClick={() => setShowEditModal(true)}
+                />
               </div>
 
               <h1>Restaurantes Favoritos:</h1>
@@ -93,6 +108,13 @@ function ProfileClient() {
           )}
         </div>
       </div>
+
+      {showEditModal && userData && (
+        <ModalEditClient
+          onClose={() => setShowEditModal(false)}
+          userData={userData}
+        />
+      )}
     </div>
   );
 }
