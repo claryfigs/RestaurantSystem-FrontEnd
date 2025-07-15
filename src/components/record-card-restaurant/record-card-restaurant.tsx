@@ -22,53 +22,83 @@ type Order = {
   order_items: OrderItem[];
   delivery_location: DeliveryLocation;
   total_amount: string;
-  status: string; // 'S', 'D', 'C', 'P' etc
+  status: string;
   details: string;
   created_at: string;
 };
 
+type Review = {
+  id: number;
+  order: number;
+  rating: number;
+  review_text: string;
+  partner_response: string | null;
+  customer_email: string;
+  partner_email: string;
+  partner_image: string;
+  created_at: string;
+  updated_at: string;
+};
+
 const RecordCardRestaurant: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
+  const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null);
 
   useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.error('Token não encontrado no localStorage');
+      return;
+    }
+
     const fetchOrders = async () => {
-      const token = localStorage.getItem('accessToken');
-      if (!token) {
-        console.error('Token não encontrado no localStorage');
-        return;
-      }
       try {
-        const response = await fetch('http://localhost:8000/api/v1/orders/', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const res = await fetch('http://localhost:8000/api/v1/orders/', {
+          headers: { Authorization: `Bearer ${token}` },
         });
-        if (!response.ok) {
-          throw new Error('Erro ao buscar pedidos');
-        }
-        const data = await response.json();
+        if (!res.ok) throw new Error('Erro ao buscar pedidos');
+        const data = await res.json();
         setOrders(data.results);
       } catch (error) {
         console.error(error);
       }
     };
 
+    const fetchReviews = async () => {
+      try {
+        const res = await fetch('http://localhost:8000/api/v1/order-reviews/', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error('Erro ao buscar avaliações');
+        const data = await res.json();
+        setReviews(data.results);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchOrders();
+    fetchReviews();
   }, []);
 
   const handleOpenModal = (orderId: number) => {
-    setSelectedOrderId(orderId);
-    setShowModal(true);
+    // Procura avaliação para o pedido
+    const review = reviews.find(r => r.order === orderId);
+    if (review) {
+      setSelectedReviewId(review.id);
+      setShowModal(true);
+    } else {
+      alert('Nenhuma avaliação encontrada para este pedido.');
+    }
   };
 
   const handleCloseModal = () => {
-    setSelectedOrderId(null);
+    setSelectedReviewId(null);
     setShowModal(false);
   };
 
-  // Traduz status para o componente StatusOrderClient
   const mapStatus = (status: string) => {
     switch (status) {
       case 'S': return 'enviado';
@@ -76,8 +106,7 @@ const RecordCardRestaurant: React.FC = () => {
       case 'O': return 'saiu_pra_entrega';
       case 'D': return 'entregue';
       case 'C': return 'enviado';
-      default:
-        return 'enviado';
+      default: return 'enviado';
     }
   };
 
@@ -88,9 +117,7 @@ const RecordCardRestaurant: React.FC = () => {
         .map((order) => (
           <div key={order.id} className='order-card-client'>
             <div className='order-card-client-head'>
-              <h1>
-                PEDIDO #{order.id} {order.status === 'C' && '(cancelado)'}
-              </h1>
+              <h1>PEDIDO #{order.id} {order.status === 'C' && '(cancelado)'}</h1>
               <h1>{order.created_at}</h1>
             </div>
 
@@ -157,8 +184,11 @@ const RecordCardRestaurant: React.FC = () => {
           </div>
         ))}
 
-      {showModal && (
-        <ModalAssessmentRestaurant onClose={handleCloseModal} orderId={selectedOrderId} />
+      {showModal && selectedReviewId && (
+        <ModalAssessmentRestaurant
+          onClose={handleCloseModal}
+          reviewId={selectedReviewId}
+        />
       )}
     </>
   );
