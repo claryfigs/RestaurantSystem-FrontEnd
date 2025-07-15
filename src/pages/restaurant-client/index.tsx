@@ -52,7 +52,8 @@ const RestaurantClient: React.FC = () => {
   const [favorited, setFavorited] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
-  const [profileId, setProfileId] = useState<number | null>(null); // novo
+  const [profileId, setProfileId] = useState<number | null>(null);
+  const [averageRating, setAverageRating] = useState<number>(0);
 
   const handleCardClick = (item: MenuItem) => {
     if (!isOpen) {
@@ -83,7 +84,8 @@ const RestaurantClient: React.FC = () => {
 
         const restaurantData = await response.json();
         setRestaurant(restaurantData);
-        setProfileId(restaurantData.profile_data?.id || null); // novo
+        setProfileId(restaurantData.profile_data?.id || null);
+        setAverageRating(restaurantData.profile_data?.average_rating || 0);
 
         const responseMenu = await fetch(`${baseUrl}/api/v1/partners/${id}/menu-items/`, {
           headers: {
@@ -154,7 +156,10 @@ const RestaurantClient: React.FC = () => {
             <div className="restaurant-client-box2">
               <div className="restaurant-client-box3">
                 <p className="restaurant-client-name">{fullName}</p>
-                <Stars activeStars={5} />
+                <Stars
+                  activeStars={Math.round(Number(averageRating))}
+                  ratingNumber={Number(averageRating)}
+                />
               </div>
 
               <div className="restaurant-client-description">
@@ -185,7 +190,6 @@ const RestaurantClient: React.FC = () => {
               <ButtonMap />
             </div>
             <p>{phone}</p>
-            {/* <p>ID do profile_data: {restaurant.profile_data?.id}</p> */}
           </div>
 
           <h1>Lista de itens:</h1>
