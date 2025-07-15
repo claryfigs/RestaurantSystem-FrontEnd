@@ -65,6 +65,14 @@ const ModalAssessmentRestaurant: React.FC<ModalAssessmentRestaurantProps> = ({ o
     );
   }
 
+  // Função para formatar o updated_at removendo os segundos
+  const getFormattedUpdatedAt = (updatedAt: string) => {
+    if (!updatedAt || updatedAt.length < 16) return updatedAt;
+    const datePart = updatedAt.slice(0, 10);
+    const timePart = updatedAt.slice(11, 16);
+    return `${datePart} às ${timePart}`;
+  };
+
   return (
     <div className="modal-assessment-client-overlay">
       <div className="modal-assessment-client-content">
@@ -85,9 +93,6 @@ const ModalAssessmentRestaurant: React.FC<ModalAssessmentRestaurantProps> = ({ o
 
           <div className='modal-assessment-client-infosrestaurant'>
             <p>PEDIDO #{review.order}</p>
-            {/* <p>Cliente: {review.customer_email}</p>
-            <p>Parceiro: {review.partner_email}</p>
-            {review.partner_image && <img src={review.partner_image} alt='Parceiro' style={{ maxWidth: '150px' }} />} */}
           </div>
 
           <h2>Estrelas:</h2>
@@ -97,6 +102,8 @@ const ModalAssessmentRestaurant: React.FC<ModalAssessmentRestaurantProps> = ({ o
           <div className='modal-assessment-comment-space'>
             <p>{review.review_text || '-'}</p>
           </div>
+
+          <h2>Última atualização em {getFormattedUpdatedAt(review.updated_at)}</h2>
 
           {review.partner_response && (
             <>

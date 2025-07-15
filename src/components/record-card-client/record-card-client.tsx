@@ -3,6 +3,7 @@ import './record-card-client.css';
 import Button from '../Button/Button';
 import StatusOrderClient from '../status-order-client/status-order-client';
 import ModalAssessmentClient from '../modal-assessment-client/modal-assessment-client';
+import ModalAssessmentEdit from '../modal-assessment-edit/modal-assessment-edit';
 
 type OrderItem = {
   id: number;
@@ -26,33 +27,62 @@ type Order = {
   created_at: string;
 };
 
-type Props = {
-  order: Order;
+type Review = {
+  id: number;
+  order: number;
+  rating: number;
+  review_text: string;
 };
 
-const RecordCardClient: React.FC<Props> = ({ order }) => {
-  const [showModal, setShowModal] = useState(false);
+type Props = {
+  order: Order;
+  customerReviews: Review[];
+};
 
-  let statusForComponent: 'entregue' | 'cancelado';
-  if (order.status === 'D') statusForComponent = 'entregue';
-  else statusForComponent = 'cancelado';
+const RecordCardClient: React.FC<Props> = ({ order, customerReviews }) => {
+  const [openModalType, setOpenModalType] = useState<'new' | 'edit' | null>(null);
+
+  // Busca a avaliação existente para este pedido
+  const existingReview = customerReviews.find(review => review.order === order.id);
+
+  let statusForComponent: 'entregue' | 'cancelado' = order.status === 'D' ? 'entregue' : 'cancelado';
 
   return (
     <>
       <div className='order-card-client'>
         <div className='order-card-client-head'>
-          <h1>{order.partner} - PEDIDO {order.id} {order.status === 'C' && '(Cancelado)'}</h1>
+          <h1>
+            {order.partner} - PEDIDO {order.id} {order.status === 'C' && '(Cancelado)'}
+          </h1>
           <h1>{order.created_at}</h1>
         </div>
 
         <div className='order-card-client-head2'>
           <StatusOrderClient status={statusForComponent} />
+
           {order.status === 'D' && (
-            <Button
-              label="Avaliar pedido"
-              variant="tertiary"
-              onClick={() => setShowModal(true)}
-            />
+            <div className='buttons-order-space'>
+              {existingReview ? (
+                <>
+                  <Button
+                    label="Editar avaliação"
+                    variant="tertiary"
+                    onClick={() => setOpenModalType('edit')}
+                  />
+                  <Button
+                    label="Avaliar pedido"
+                    variant="tertiary"
+                    disabled
+                  />
+                </>
+              ) : (
+                <Button
+                  label="Avaliar pedido"
+                  variant="tertiary"
+                  onClick={() => setOpenModalType('new')}
+                />
+              )}
+            </div>
           )}
         </div>
 
@@ -61,14 +91,18 @@ const RecordCardClient: React.FC<Props> = ({ order }) => {
             <div className='order-card-client-itensbox-column1'>
               <p className='order-card-client-itensbox-title'>Nome</p>
               {order.order_items.map(item => (
-                <p className='order-card-client-itensbox-subtitle' key={item.id}>{item.menu_item_name}</p>
+                <p className='order-card-client-itensbox-subtitle' key={item.id}>
+                  {item.menu_item_name}
+                </p>
               ))}
             </div>
 
             <div className='order-card-client-itensbox-column2'>
               <p className='order-card-client-itensbox-title'>Quantidade</p>
               {order.order_items.map(item => (
-                <p className='order-card-client-itensbox-subtitle' key={item.id}>x{item.quantity}</p>
+                <p className='order-card-client-itensbox-subtitle' key={item.id}>
+                  x{item.quantity}
+                </p>
               ))}
             </div>
 
@@ -88,7 +122,9 @@ const RecordCardClient: React.FC<Props> = ({ order }) => {
           <div className='order-card-client-itensbox-boxvalue'>
             <div className='order-card-client-itensbox-value'>
               <p className='order-card-client-itensbox-value-title'>Valor total:</p>
-              <p className='order-card-client-itensbox-value-subtitle'>R$ {parseFloat(order.total_amount).toFixed(2)}</p>
+              <p className='order-card-client-itensbox-value-subtitle'>
+                R$ {parseFloat(order.total_amount).toFixed(2)}
+              </p>
             </div>
           </div>
         </div>
@@ -106,10 +142,17 @@ const RecordCardClient: React.FC<Props> = ({ order }) => {
         </div>
       </div>
 
-      {showModal && (
+      {openModalType === 'new' && (
         <ModalAssessmentClient
-          onClose={() => setShowModal(false)}
+          onClose={() => setOpenModalType(null)}
           orderId={order.id}
+        />
+      )}
+
+      {openModalType === 'edit' && existingReview && (
+        <ModalAssessmentEdit
+          onClose={() => setOpenModalType(null)}
+          review={existingReview}
         />
       )}
     </>

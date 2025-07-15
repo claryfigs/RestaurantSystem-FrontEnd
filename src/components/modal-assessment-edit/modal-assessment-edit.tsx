@@ -1,65 +1,69 @@
 import { useState } from 'react';
-import './modal-assessment-client.css';
+import './modal-assessment-edit.css';
 import Button from '../Button/Button';
 import CloseIcon from '../../assets/close-icon.png';
 import RestaurantIcon from '../../assets/ueceana.png';
 import ObservationInput from '../input-observation/input-observation';
 import StarAssessmentClient from '../stars-assessment-client/stars-assessment-client';
 
-type ModalAssessmentClientProps = {
+type ModalAssessmentEditProps = {
   onClose: () => void;
-  orderId: number;
+  review: {
+    id: number;
+    order: number;
+    rating: number;
+    review_text: string;
+  };
 };
 
-const ModalAssessmentClient: React.FC<ModalAssessmentClientProps> = ({ onClose, orderId }) => {
-  const [observation, setObservation] = useState('');
-  const [rating, setRating] = useState(5);
+const baseUrl = 'http://localhost:8000';
 
-  const handleSubmit = async () => {
-    if (!observation) {
-      alert('Por favor, preencha o comentário.');
-      return;
-    }
+const ModalAssessmentEdit: React.FC<ModalAssessmentEditProps> = ({ onClose, review }) => {
+  const [observation, setObservation] = useState(review.review_text || '');
+  const [rating, setRating] = useState(review.rating || 0);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-    const token = localStorage.getItem('accessToken');
-
-    if (!token) {
-      alert('Usuário não autenticado.');
-      return;
-    }
+  const handleSave = async () => {
+    setSaving(true);
+    setError(null);
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/order-reviews/', {
-        method: 'POST',
+      const token = localStorage.getItem('accessToken');
+
+      const response = await fetch(`${baseUrl}/api/v1/order-reviews/${review.id}/`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          order: orderId,
-          rating,
+          order: review.order,
+          rating: rating,
           review_text: observation
         })
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Erro ao enviar avaliação:', errorData);
-        alert('Erro ao enviar avaliação.');
-      } else {
-        alert('Avaliação enviada com sucesso!');
-        onClose();
-        window.location.reload();
+        throw new Error(`Erro ao salvar alterações: ${response.statusText}`);
       }
-    } catch (error) {
-      console.error('Erro inesperado:', error);
-      alert('Erro ao enviar avaliação.');
+
+      // ✅ Sucesso: fecha modal
+      onClose();
+      window.location.reload();
+
+    } catch (err: any) {
+      console.error(err);
+      setError('Erro ao salvar alterações. Tente novamente.');
+    } finally {
+      setSaving(false);
     }
   };
 
   return (
     <div className="modal-assessment-client-overlay">
       <div className="modal-assessment-client-content">
+
         <div className='modal-assessment-client-header'>
           <img
             src={CloseIcon}
@@ -72,7 +76,7 @@ const ModalAssessmentClient: React.FC<ModalAssessmentClientProps> = ({ onClose, 
 
         <div className='modal-client-assessment-infos'>
           <div className='modal-assessment-client-infosbox'>
-            <h1>Avalie sua experiência</h1>
+            <h1>Editar avaliação</h1>
           </div>
 
           <div className='modal-assessment-client-infosrestaurant'>
@@ -82,26 +86,32 @@ const ModalAssessmentClient: React.FC<ModalAssessmentClientProps> = ({ onClose, 
                 backgroundImage: `url(${RestaurantIcon})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-              }}
-            ></div>
-            <p>PEDIDO {orderId}</p>
+              }}>
+            </div>
+            <p>PEDIDO {review.order}</p>
           </div>
-          
-          <h2>Review text:</h2>
+
+          <h2>Altere o comentário:</h2>
           <ObservationInput
             value={observation}
             onChange={(e) => setObservation(e.target.value)}
             placeholder="Digite seu comentário"
           />
 
-          <h2>Rating:</h2>
-          <StarAssessmentClient onChange={(value) => setRating(value)} />
+          <h2>Altere a quantidade de estrelas:</h2>
+          <StarAssessmentClient
+            initialRating={rating}
+            onChange={(value) => setRating(value)}
+          />
+
+          {error && <p className="modal-error-message">{error}</p>}
 
           <div className='modal-assessment-client-buttonspace'>
             <Button
-              label='Enviar avaliação'
+              label={saving ? 'Salvando...' : 'Salvar alterações'}
               variant='primary'
-              onClick={handleSubmit}
+              onClick={handleSave}
+              disabled={saving}
             />
           </div>
         </div>
@@ -110,4 +120,4 @@ const ModalAssessmentClient: React.FC<ModalAssessmentClientProps> = ({ onClose, 
   );
 };
 
-export default ModalAssessmentClient;
+export default ModalAssessmentEdit;

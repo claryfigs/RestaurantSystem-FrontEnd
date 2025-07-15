@@ -107,3 +107,8 @@
     flex-direction: line;
     gap: 0.5vh;
 }
+
+.buttons-order-space{
+    display: flex;
+    gap: 2vh;
+}

@@ -1,0 +1,67 @@
+.modal-assessment-client-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* overlay escuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-assessment-client-content {
+  background-color: white;
+  padding: 2vh;
+  border-radius: 2vh;
+  width: 40%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-assessment-client-header{
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    height: 3vh;
+}
+
+.close-icon-modal-assessment-client{
+    width: 3vh;
+    height: 3vh;
+}
+
+.modal-client-assessment-infos{
+    margin-bottom: 1vh;
+}
+
+.modal-assessment-client-infosbox{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2vh;
+}
+
+.modal-assessment-client-infosrestaurant{
+    display: flex;
+    flex-direction: line;
+    align-items: center;
+    margin-bottom: 2vh;
+    font-family: var(--fonte-titulo);
+    color: var(--cinza-escuro);
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.modal-assessment-client-image{
+    border-radius: 50%;
+    background-color: green;
+    width: 8vh;
+    height: 8vh;
+    margin-right: 2vh;
+}
+
+.modal-assessment-client-buttonspace{
+    margin-top: 2vh;
+    display: flex;
+    justify-content: center;
+}
