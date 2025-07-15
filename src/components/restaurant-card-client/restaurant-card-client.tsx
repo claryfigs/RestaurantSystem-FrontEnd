@@ -11,9 +11,9 @@ type RestaurantCardClientProps = {
   isOpen: boolean;
   openingTime: string;
   closingTime: string;
+  averageRating: number;
 };
 
-// Função para formatar como 06:00
 const formatHour = (time: string) => {
   const [hour, minute] = time.split(':');
   return `${hour}:${minute}`;
@@ -26,6 +26,7 @@ const RestaurantCardClient: React.FC<RestaurantCardClientProps> = ({
   isOpen,
   openingTime,
   closingTime,
+  averageRating,
 }) => {
   const navigate = useNavigate();
 
@@ -53,7 +54,7 @@ const RestaurantCardClient: React.FC<RestaurantCardClientProps> = ({
         <h2>
           {formatHour(openingTime)} às {formatHour(closingTime)}
         </h2>
-        <Stars activeStars={5} />
+        <Stars activeStars={Math.floor(averageRating)} />
       </div>
     </div>
   );

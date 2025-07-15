@@ -15,6 +15,7 @@ type ProfileData = {
   opening_time: string;
   closing_time: string;
   opening_days: string[];
+  average_rating: number;
 };
 
 type Restaurant = {
@@ -28,7 +29,7 @@ type Restaurant = {
   profile_data: ProfileData;
 };
 
-const baseUrl = 'http://localhost:8000'; // ajuste para sua API
+const baseUrl = 'http://localhost:8000';
 
 const RestaurantListClient: React.FC = () => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -81,6 +82,7 @@ const RestaurantListClient: React.FC = () => {
           isOpen={rest.profile_data.is_currently_open}
           openingTime={rest.profile_data.opening_time}
           closingTime={rest.profile_data.closing_time}
+          averageRating={rest.profile_data.average_rating}
         />
       ))}
     </div>
