@@ -3,6 +3,7 @@ import "./style.css";
 import NavbarInstitutional from "../../components/navbar-institutional";
 import InputDefault from "../../components/input-default/input-default";
 import Button from "../../components/Button/Button";
+import ModalAlert from "../../components/modal-alert/modal-alert";
 import hamburgerCuate from "../../assets/hamburger-cuate.png";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,7 +11,29 @@ const LoginCliente: React.FC = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<"success" | "error">("error");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
+
+  const showModal = (
+    type: "success" | "error",
+    title: string,
+    message: string
+  ) => {
+    setModalType(type);
+    setModalTitle(title);
+    setModalMessage(message);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    if (modalType === "success") {
+      navigate("/home-client");
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,9 +50,10 @@ const LoginCliente: React.FC = () => {
         try {
           data = await response.json();
         } catch (jsonError) {
-          throw new Error(`Erro HTTP ${response.status}: resposta não é JSON válido`);
+          throw new Error("Erro de comunicação com o servidor");
         }
-        const message = data.detail || data.error || `Erro HTTP ${response.status}`;
+        const message =
+          data.detail || data.error || "Email ou senha incorretos";
         throw new Error(message);
       }
 
@@ -43,18 +67,20 @@ const LoginCliente: React.FC = () => {
 
       // Inicializando carrinho vazio no localStorage
       localStorage.setItem("cartItems", JSON.stringify([]));
-      console.log("Carrinho inicializado:", []);
 
-      // Logando no console
-      console.log("Login realizado com sucesso!");
-      console.log("Access Token:", data.access);
-      console.log("Refresh Token:", data.refresh);
-      console.log("User ID:", data.user_id);
-      console.log("User Type:", data.user_type);
-
-      navigate("/home-client");
+      // Mostra modal de sucesso
+      showModal(
+        "success",
+        "Login realizado com sucesso!",
+        "Bem-vindo ao sistema!"
+      );
     } catch (err: any) {
-      setError(err.message || "Erro desconhecido ao fazer login.");
+      // Mostra modal de erro
+      showModal(
+        "error",
+        "Erro no login",
+        err.message || "Erro desconhecido ao fazer login."
+      );
     }
   };
 
@@ -101,6 +127,14 @@ const LoginCliente: React.FC = () => {
           </form>
         </div>
       </div>
+
+      <ModalAlert
+        isOpen={modalOpen}
+        title={modalTitle}
+        message={modalMessage}
+        type={modalType}
+        onClose={closeModal}
+      />
     </div>
   );
 };
