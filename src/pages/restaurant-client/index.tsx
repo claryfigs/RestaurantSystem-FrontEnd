@@ -7,6 +7,7 @@ import ItemListClient from "../../components/item-list-client/item-list-client";
 import ModalClientItem from "../../components/modal-client-item/modal-client-item";
 import Stars from "../../components/stars/stars";
 import RestaurantStatus from "../../components/restaurant-status/restaurant-status";
+import ModalMap from "../../components/modal-map/modal-map";
 import "./style.css";
 
 const baseUrl = "http://localhost:8000";
@@ -55,11 +56,16 @@ const RestaurantClient: React.FC = () => {
   const [profileId, setProfileId] = useState<number | null>(null);
   const [averageRating, setAverageRating] = useState<number>(0);
 
+  // ✅ ESTADO DO MODAL DE MAPA
+  const [showMapModal, setShowMapModal] = useState(false);
+  const handleOpenMapModal = () => setShowMapModal(true);
+  const handleCloseMapModal = () => setShowMapModal(false);
+
   const handleCardClick = (item: MenuItem) => {
-    // if (!isOpen) {
-    //   alert("O restaurante está fechado, não é possível fazer pedidos no momento");
-    //   return;
-    // }
+    if (!isOpen) {
+      alert("O restaurante está fechado, não é possível fazer pedidos no momento");
+      return;
+    }
     openModal(item);
   };
 
@@ -187,7 +193,7 @@ const RestaurantClient: React.FC = () => {
           <div className="restaurant-client-box4">
             <div className="restaurant-client-box5">
               <p style={{ marginRight: "1vh" }}>{locationDesc}</p>
-              <ButtonMap />
+              <ButtonMap onClick={handleOpenMapModal} /> 
             </div>
             <p>{phone}</p>
           </div>
@@ -203,6 +209,15 @@ const RestaurantClient: React.FC = () => {
               onClose={closeModal}
               item={selectedItem}
               profileId={profileId}
+            />
+          )}
+
+
+          {showMapModal && (
+            <ModalMap
+              onClose={handleCloseMapModal}
+              onConfirmCancel={() => {}}
+              loading={false}
             />
           )}
         </div>

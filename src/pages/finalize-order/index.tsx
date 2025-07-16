@@ -7,6 +7,7 @@ import ButtonMap from "../../components/button-map/button-map";
 import ObservationInput from "../../components/input-observation/input-observation";
 import Button from "../../components/Button/Button";
 import ModalAlert from "../../components/modal-alert/modal-alert";
+import ModalMap from "../../components/modal-map/modal-map";
 import { useNavigate } from "react-router-dom";
 
 function FinalizeOrder() {
@@ -19,6 +20,11 @@ function FinalizeOrder() {
   const [modalType, setModalType] = useState<"success" | "error">("success");
   const [modalTitle, setModalTitle] = useState("");
   const [modalMessage, setModalMessage] = useState("");
+
+  // ✅ Estado para abrir o ModalMap
+  const [showMapModal, setShowMapModal] = useState(false);
+  const handleOpenMapModal = () => setShowMapModal(true);
+  const handleCloseMapModal = () => setShowMapModal(false);
 
   const navigate = useNavigate();
 
@@ -221,13 +227,10 @@ function FinalizeOrder() {
           <p className="finalize-order-balance">R$ {creditBalance}</p>
         </div>
 
-        {/* <h2>Valor total do pedido:</h2>
-        <p style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>R$ {totalOrder}</p> */}
-
         <h2>
           • Ao finalizar a compra, o valor do pedido será descontado do saldo.
         </h2>
-        <h2>• Você poderá cancelar o pedido e ser reembolsado em até 3min.</h2>
+        <h2>• Você poderá cancelar o pedido e ser reembolsado em até 1min.</h2>
 
         <h1>Selecione o local de entrega:</h1>
         <h2>
@@ -237,7 +240,8 @@ function FinalizeOrder() {
 
         <div className="finalize-order-buttons">
           <SelectLocal onChange={handleSelectChange} />
-          <ButtonMap />
+          {/* Passa onClick para abrir o modal do mapa */}
+          <ButtonMap onClick={handleOpenMapModal} />
         </div>
 
         <h2>Detalhes:</h2>
@@ -266,6 +270,15 @@ function FinalizeOrder() {
         type={modalType}
         onClose={closeModal}
       />
+
+      {/* Modal do mapa */}
+      {showMapModal && (
+        <ModalMap
+          onClose={handleCloseMapModal}
+          onConfirmCancel={() => {}}
+          loading={false}
+        />
+      )}
     </div>
   );
 }
