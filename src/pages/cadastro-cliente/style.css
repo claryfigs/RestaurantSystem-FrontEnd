@@ -83,6 +83,16 @@
   margin-top: 18px;
 }
 
+.login-error {
+  color: #e74c3c;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 8px 0;
+  text-align: left;
+  line-height: 1.4;
+}
+
 @media (max-width: 900px) {
   .cadastro-content {
     flex-direction: column;

@@ -4,6 +4,7 @@ import "./style.css";
 import NavbarInstitutional from "../../components/navbar-institutional";
 import InputDefault from "../../components/input-default/input-default";
 import Button from "../../components/Button/Button";
+import ModalAlert from "../../components/modal-alert/modal-alert";
 import mobileLogin from "../../assets/mobile-login.png";
 
 const CadastroCliente: React.FC = () => {
@@ -15,18 +16,22 @@ const CadastroCliente: React.FC = () => {
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState<"success" | "error">("success");
+  const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
 
-  // Função para converter arquivo em base64
-  const fileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        resolve(reader.result as string);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
+  const showSuccessModal = (message: string) => {
+    setModalMessage(message);
+    setModalType("success");
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    if (modalType === "success") {
+      navigate("/login-cliente");
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -80,8 +85,8 @@ const CadastroCliente: React.FC = () => {
         if (!message) message = `Erro HTTP ${response.status}`;
         throw new Error(message);
       }
-      navigate("/login-cliente");
-      window.alert(
+
+      showSuccessModal(
         "Usuário registrado com sucesso! Faça login para continuar."
       );
     } catch (err: any) {
@@ -169,6 +174,16 @@ const CadastroCliente: React.FC = () => {
           </form>
         </div>
       </div>
+
+      {showModal && (
+        <ModalAlert
+          isOpen={showModal}
+          title={modalType === "success" ? "Sucesso" : "Erro"}
+          message={modalMessage}
+          type={modalType}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 };

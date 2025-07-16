@@ -4,6 +4,7 @@ import NavbarClient from "../../components/navbar-client/navbar-client";
 import SelectPayment from "../../components/select-payment/select-payment";
 import MoneyInput from "../../components/input-money/input-money";
 import Button from "../../components/Button/Button";
+import ModalAlert from "../../components/modal-alert/modal-alert";
 
 interface ProfileData {
   id: number;
@@ -27,8 +28,26 @@ function WalletClient() {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<"success" | "error">("success");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
+
+  const showModal = (
+    type: "success" | "error",
+    title: string,
+    message: string
+  ) => {
+    setModalType(type);
+    setModalTitle(title);
+    setModalMessage(message);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   // Buscar dados do usuário na inicialização
   useEffect(() => {
@@ -64,7 +83,6 @@ function WalletClient() {
   const handleSelectChange = (val: string) => {
     setPaymentMethod(val);
     setError("");
-    setSuccess("");
   };
 
   // Converte string tipo "12,34" para float 12.34
@@ -74,7 +92,6 @@ function WalletClient() {
 
   const handleAddCredits = async () => {
     setError("");
-    setSuccess("");
     const amount = parseMoney(value);
     if (isNaN(amount) || amount < 5) {
       setError("O valor mínimo para adicionar é R$ 5,00.");
@@ -136,7 +153,13 @@ function WalletClient() {
         );
       }
 
-      setSuccess("Saldo adicionado com sucesso!");
+      showModal(
+        "success",
+        "Saldo adicionado com sucesso!",
+        `R$ ${amount
+          .toFixed(2)
+          .replace(".", ",")} foram adicionados à sua carteira.`
+      );
       setValue("00,00");
       setPaymentMethod("");
     } catch (err: any) {
@@ -192,10 +215,15 @@ function WalletClient() {
           />
         </div>
         {error && <div style={{ color: "red", marginTop: 10 }}>{error}</div>}
-        {success && (
-          <div style={{ color: "green", marginTop: 10 }}>{success}</div>
-        )}
       </div>
+
+      <ModalAlert
+        isOpen={modalOpen}
+        title={modalTitle}
+        message={modalMessage}
+        type={modalType}
+        onClose={closeModal}
+      />
     </div>
   );
 }

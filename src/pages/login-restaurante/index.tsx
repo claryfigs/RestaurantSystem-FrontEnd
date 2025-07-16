@@ -4,46 +4,60 @@ import "./style.css";
 import NavbarInstitutional from "../../components/navbar-institutional";
 import InputDefault from "../../components/input-default/input-default";
 import Button from "../../components/Button/Button";
+import ModalAlert from "../../components/modal-alert/modal-alert";
 import hamburgerCuate from "../../assets/hamburger-cuate.png";
 
 const LoginRestaurante: React.FC = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<"success" | "error">("error");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
+
+  const showModal = (
+    type: "success" | "error",
+    title: string,
+    message: string
+  ) => {
+    setModalType(type);
+    setModalTitle(title);
+    setModalMessage(message);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    if (modalType === "success") {
+      navigate("/restaurant-profile");
+    }
+  };
 
   const handleLogin = async () => {
     setError(null);
     try {
-      console.log("Tentando fazer login com:", { email, senha });
-
       const response = await fetch("http://localhost:8000/api/v1/auth-token/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password: senha }),
       });
 
-      console.log("Resposta recebida:", response);
-
       if (!response.ok) {
         let data;
         try {
           data = await response.json();
-          console.log("Corpo da resposta de erro:", data);
         } catch (jsonError) {
-          console.error("Erro ao parsear JSON da resposta:", jsonError);
-          throw new Error(
-            `Erro HTTP ${response.status}: resposta não é JSON válido`
-          );
+          throw new Error("Erro de comunicação com o servidor");
         }
 
         const message =
-          data.detail || data.error || `Erro HTTP ${response.status}`;
+          data.detail || data.error || "Email ou senha incorretos";
         throw new Error(message);
       }
 
       const data = await response.json();
-      console.log("Login bem-sucedido, dados recebidos:", data);
 
       // Salvar os dados no localStorage
       localStorage.setItem("accessToken", data.access);
@@ -52,10 +66,19 @@ const LoginRestaurante: React.FC = () => {
       localStorage.setItem("userType", data.user_type);
       localStorage.setItem("profileId", data.profile_id.toString());
 
-      navigate("/restaurant-profile");
+      // Mostra modal de sucesso
+      showModal(
+        "success",
+        "Login realizado com sucesso!",
+        "Bem-vindo ao painel do restaurante!"
+      );
     } catch (err: any) {
-      console.error("Erro durante o processo de login:", err);
-      setError(err.message || "Erro desconhecido ao fazer login.");
+      // Mostra modal de erro
+      showModal(
+        "error",
+        "Erro no login",
+        err.message || "Erro desconhecido ao fazer login."
+      );
     }
   };
 
@@ -108,6 +131,14 @@ const LoginRestaurante: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <ModalAlert
+        isOpen={modalOpen}
+        title={modalTitle}
+        message={modalMessage}
+        type={modalType}
+        onClose={closeModal}
+      />
     </div>
   );
 };
