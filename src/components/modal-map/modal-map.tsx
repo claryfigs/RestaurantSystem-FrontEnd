@@ -1,7 +1,7 @@
 import React from 'react';
 import './modal-map.css';
 import Button from '../Button/Button';
-import MapImage from '../../assets/mapa-uece.png';
+import MapImage from '../../assets/mapa-uece.jpg';
 
 type ModalMapProps = {
   onClose: () => void;
