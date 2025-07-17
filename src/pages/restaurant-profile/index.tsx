@@ -6,6 +6,7 @@ import ItemListRestaurant from '../../components/item-list-restaurant/item-list-
 import ButtonMap from '../../components/button-map/button-map';
 import ModalAddCategory from '../../components/modal-add-category/modal-add-category';
 import ModalEditRestaurant from '../../components/modal-edit-restaurant/modal-edit-restaurant';
+import ModalMap from '../../components/modal-map/modal-map';
 import RestaurantImagePlaceholder from '../../assets/ueceana.png';
 
 interface LocationData {
@@ -36,35 +37,35 @@ interface ProfileData {
 function RestaurantProfile() {
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showMapModal, setShowMapModal] = useState(false);
   const [profile, setProfile] = useState<ProfileData | null>(null);
 
-  // const handleOpenCategoryModal = () => setShowCategoryModal(true);
   const handleCloseCategoryModal = () => setShowCategoryModal(false);
-
   const handleOpenEditModal = () => setShowEditModal(true);
   const handleCloseEditModal = () => setShowEditModal(false);
 
+  const handleOpenMapModal = () => setShowMapModal(true);
+  const handleCloseMapModal = () => setShowMapModal(false);
 
   function formatTime(time: string | undefined) {
-  if (!time) return '';
-  const [h, m] = time.split(':');
-  return `${h}:${m}`;
+    if (!time) return '';
+    const [h, m] = time.split(':');
+    return `${h}:${m}`;
   }
 
   const dayMap: Record<string, string> = {
-  MON: 'SEG',
-  TUE: 'TER',
-  WED: 'QUA',
-  THU: 'QUI',
-  FRI: 'SEX',
-  SAT: 'SAB',
-  SUN: 'DOM'
+    MON: 'SEG',
+    TUE: 'TER',
+    WED: 'QUA',
+    THU: 'QUI',
+    FRI: 'SEX',
+    SAT: 'SAB',
+    SUN: 'DOM'
   };
 
   function translateDays(days: string[]): string[] {
-  return days.map(day => dayMap[day] || day);
+    return days.map(day => dayMap[day] || day);
   }
-
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -145,7 +146,7 @@ function RestaurantProfile() {
               )}
 
               <p className="restaurant-profile-timeopen">
-                  Dias abertos:{' '}
+                Dias abertos:{' '}
               </p>
 
               {profile?.profile_data && (
@@ -153,7 +154,6 @@ function RestaurantProfile() {
                   {translateDays(profile.profile_data.opening_days).join(', ')}
                 </p>
               )}
-
             </div>
           </div>
 
@@ -164,20 +164,14 @@ function RestaurantProfile() {
                 {profile?.profile_data?.location?.description ||
                   'Endereço não informado'}
               </p>
-              <ButtonMap />
+              <ButtonMap onClick={handleOpenMapModal} />
             </div>
             <p>{profile?.phone_number || '+55 85 00000-0000'}</p>
           </div>
 
           <ItemListRestaurant />
 
-          {/* Botão para abrir o modal de categoria */}
-          {/* <Button
-            label="Criar nova categoria"
-            variant="secondary"
-            onClick={handleOpenCategoryModal}
-          /> */}
-
+          {/* Modais */}
           {showCategoryModal && (
             <ModalAddCategory onClose={handleCloseCategoryModal} />
           )}
@@ -186,6 +180,14 @@ function RestaurantProfile() {
             <ModalEditRestaurant
               onClose={handleCloseEditModal}
               profile={profile}
+            />
+          )}
+
+          {showMapModal && (
+            <ModalMap
+              onClose={handleCloseMapModal}
+              onConfirmCancel={() => {}}
+              loading={false}
             />
           )}
         </div>

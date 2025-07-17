@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './order-card-restaurant.css';
 import StatusOrderRestaurant from '../status-order-restaurant/status-order-restaurant';
 import ButtonMap from '../button-map/button-map';
+import ModalMap from '../modal-map/modal-map';
 
 type OrderItem = {
   id: number;
@@ -33,6 +34,10 @@ const OrderCardRestaurant: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showMapModal, setShowMapModal] = useState(false);
+
+  const handleOpenMapModal = () => setShowMapModal(true);
+  const handleCloseMapModal = () => setShowMapModal(false);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -71,7 +76,6 @@ const OrderCardRestaurant: React.FC = () => {
   if (error) return <p style={{ color: 'red' }}>Erro: {error}</p>;
   if (orders.length === 0) return <p>Nenhum pedido encontrado.</p>;
 
-  // Filtrar pedidos com status diferente de "D" e "C"
   const visibleOrders = orders.filter(order => order.status !== 'D' && order.status !== 'C');
 
   if (visibleOrders.length === 0) return <p>Nenhum pedido disponível para exibir.</p>;
@@ -143,11 +147,19 @@ const OrderCardRestaurant: React.FC = () => {
 
           <div className='order-card-client-buttonspace'>
             <div>
-              <ButtonMap />
+              <ButtonMap onClick={handleOpenMapModal} />
             </div>
           </div>
         </div>
       ))}
+
+      {showMapModal && (
+        <ModalMap
+          onClose={handleCloseMapModal}
+          onConfirmCancel={() => {}}
+          loading={false}
+        />
+      )}
     </>
   );
 };
