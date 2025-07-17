@@ -53,7 +53,7 @@ const SidebarRestaurant: React.FC = () => {
         >
           Suporte
         </p>
-        <p className="sidebar-buttons" onClick={() => handleNavigate("/home")}>
+        <p className="sidebar-buttons" onClick={() => handleNavigate("/")}>
           Sair
         </p>
       </div>
