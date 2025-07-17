@@ -67,7 +67,7 @@ const SidebarClient: React.FC = () => {
         >
           Suporte
         </p>
-        <p className="sidebar-buttons" onClick={() => handleNavigate("/home")}>
+        <p className="sidebar-buttons" onClick={() => handleNavigate("/login")}>
           Sair
         </p>
       </div>
